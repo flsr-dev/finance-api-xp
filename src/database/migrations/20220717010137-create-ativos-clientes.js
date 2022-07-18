@@ -1,21 +1,23 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('AtivosContas', {
-      cod_conta: {
+    await queryInterface.createTable('AtivosClientes', {
+      codCliente: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
+        field: 'cod_cliente',
         references: {
-          model: 'Contas',
-          key: 'cod_conta'
+          model: 'Clientes',
+          key: 'cod_cliente'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      cod_ativo: {
+      codAtivo: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
+        field: 'cod_ativo',
         references: {
           model: 'Ativos',
           key: 'cod_ativo'
@@ -27,13 +29,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(19, 2)
       },
-      qtde_ativo: {
+      qtdeAtivo: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'qtde_ativo'
       }
     });
   },
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('AtivosContas');
+    await queryInterface.dropTable('AtivosClientes');
   }
 };

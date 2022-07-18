@@ -8,16 +8,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'id_transacao'
       },
-      codConta: {
+      codCliente: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Contas',
-          key: 'cod_conta'
+          model: 'Clientes',
+          key: 'cod_cliente'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
-        field: 'cod_conta'
+        field: 'cod_cliente'
       },
       codTipoTransacao: {
         allowNull: false,
