@@ -10,14 +10,32 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      TiposDeTransacoes.hasMany(
+        models.Transacoes,
+        {
+          foreignKey: 'cod_tipo_transacao',
+          as: 'transacoes'
+        }
+      )
     }
   }
   TiposDeTransacoes.init({
-    cod_transacao: DataTypes.INTEGER
+    codTipoTransacao: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      field: 'cod_tipo_transacao',
+    },
+    tipoTransacao: {
+      type: DataTypes.STRING,
+      field: 'tipo_transacao'
+    }
   }, {
     sequelize,
     modelName: 'TiposDeTransacoes',
+    tableName: 'TiposDeTransacoes',
+    timestamps: false,
+    underscored: true,
   });
   return TiposDeTransacoes;
 };
