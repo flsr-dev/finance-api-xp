@@ -18,11 +18,12 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       valor: {
-        type: Sequelize.DECIMAL(2),
+        type: Sequelize.DECIMAL(19, 2),
         allowNull: false
       },
       ativo: {
         type: Sequelize.BOOLEAN,
+        allowNull: false,
         defaultValue: true,
       },
       createdAt: {

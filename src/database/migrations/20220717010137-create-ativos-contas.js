@@ -1,35 +1,39 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('OperacoesContas', {
+    await queryInterface.createTable('AtivosContas', {
       cod_conta: {
         allowNull: false,
+        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'Contas',
           key: 'cod_conta'
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        primaryKey: true
+        onUpdate: 'CASCADE'
       },
-      cod_operacao: {
+      cod_ativo: {
         allowNull: false,
+        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'TiposDeOperacoes',
-          key: 'cod_operacao'
+          model: 'Ativos',
+          key: 'cod_ativo'
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        primaryKey: true
+        onUpdate: 'CASCADE'
       },
       valor: {
-        type: Sequelize.DECIMAL(2),
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.DECIMAL(19, 2)
+      },
+      qtde_ativo: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       }
     });
   },
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('OperacoesContas');
+    await queryInterface.dropTable('AtivosContas');
   }
 };
