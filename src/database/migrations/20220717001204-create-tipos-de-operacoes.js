@@ -1,19 +1,22 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TiposDeOperacoes', {
-      cod_operacao: {
+      codTipoOperacao: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'cod_tipo_operacao'
+       
       },
-      tipo_operacao: {
+      tipoOperacao: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        field: 'tipo_operacao'
       }
     });
   },
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('TiposDeOPeracoes');
+    await queryInterface.dropTable('TiposDeOperacoes');
   }
 };

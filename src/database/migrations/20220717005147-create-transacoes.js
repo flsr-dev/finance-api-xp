@@ -1,44 +1,54 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('TransacoesClientes', {
-      cod_conta: {
+    await queryInterface.createTable('Transacoes', {
+      idTransacao: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER,
+        field: 'id_transacao'
+      },
+      codConta: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Contas',
           key: 'cod_conta'
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        field: 'cod_conta'
       },
-      cod_transacao: {
+      codTipoTransacao: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'TiposDeTransacoes',
-          key: 'cod_transacao'
+          key: 'cod_tipo_transacao'
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        field: 'cod_tipo_transacao'
       },
-      cod_ativo: {
+      codAtivo: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Ativos',
           key:'cod_ativo'
-        }
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        field: 'cod_ativo'
       },
       valor: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(19, 2)
       },
-      qtde_ativo: {
+      qtdeAtivo: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'qtde_ativo'
       },
       createdAt: {
         allowNull: false,
@@ -48,6 +58,6 @@ module.exports = {
     });
   },
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('TransacoesClientes');
+    await queryInterface.dropTable('Transacoes');
   }
 };
