@@ -3,9 +3,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TiposDeOperacoes extends Model {
-    static associate(models) {
 
-    }
   }
   TiposDeOperacoes.init({
     codTipoOperacao: {
