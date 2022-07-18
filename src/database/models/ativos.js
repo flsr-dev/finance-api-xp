@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
       allowNull: false
     },
+    qtdeAtivo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'qtde_ativo',
+    },
     valor: DataTypes.DECIMAL(19, 2)
   }, {
     sequelize,

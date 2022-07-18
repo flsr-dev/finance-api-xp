@@ -13,6 +13,11 @@ module.exports = {
         type: Sequelize.STRING,
         field: 'simbolo_ativo'
       },
+      qtdeAtivo: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        field: 'qtde_ativo',
+      },
       valor: {
         allowNull: false,
         type: Sequelize.DECIMAL(19, 2)
