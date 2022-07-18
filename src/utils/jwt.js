@@ -1,7 +1,7 @@
 const Jwt = require('jsonwebtoken');
 const { StatusCodes } = require('http-status-codes');
 const HttpException = require('../classes/http.exception');
-const { AUTHENTICATION_ERROR_MSG } = require('./error.messages');
+const { AUTHENTICATION_ERROR_MSG } = require('./errorMessages');
 
 const { JWT_SECRET } = process.env;
 

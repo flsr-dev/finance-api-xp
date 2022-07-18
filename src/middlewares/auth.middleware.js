@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const HttpException = require('../classes/http.exception');
-const { AUTHENTICATION_ERROR_MSG } = require('../utils/error.messages');
+const { AUTHENTICATION_ERROR_MSG } = require('../utils/errorMessages');
 const { authenticateToken } = require('../utils/jwt');
 
 const authenticationMiddleware = (req, res, next) => {

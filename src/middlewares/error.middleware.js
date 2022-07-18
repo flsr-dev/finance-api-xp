@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const errorMessages = require('../utils/error.messages');
+const errorMessages = require('../utils/errorMessages');
 
 const httpErrorMiddleware = (err, _req, res, _next) => {
   const { status, message } = err;
