@@ -6,7 +6,7 @@ const { PORT } = process.env;
 const app = express();
 
 app.use(express.json());
-app.disable('x-powered_by');
+app.disable('x-powered-by');
 
 app.get('/', (_req, res) => {
   res.send('Hello, XP!');
