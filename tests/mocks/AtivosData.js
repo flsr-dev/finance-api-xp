@@ -27,6 +27,13 @@ const foundAsset = {
   qtdeAtivo: 20185,
 };
 
+const foundClientAsset = {
+  codCliente: 1,
+  codAtivo: 1,
+  valor: 68.37,
+  qtdeAtivo: 32,
+};
+
 const newBrokerAssetAmount = foundAsset.qtdeAtivo - validBody.qtdeAtivo;
 
 const ativoUpdateParameters = {
@@ -36,9 +43,25 @@ const ativoUpdateParameters = {
 const ativoUpdateOptionsParameters = {
   where: { codAtivo: validBody.codAtivo },
 };
+
+const newClientAssetAmount = foundClientAsset.qtdeAtivo - validBody.qtdeAtivo;
+const ativoUpdateSellParameters = {
+  qtdeAtivo: newClientAssetAmount,
+  valor: foundAsset.valor,
+};
+
+const ativoUpdateSellOptionsParameters = {
+  where: {
+    codAtivo: validBody.codAtivo,
+    codCliente: validBody.codCliente,
+  },
+};
+
 module.exports = {
   allAssets,
   foundAsset,
   ativoUpdateOptionsParameters,
   ativoUpdateParameters,
+  ativoUpdateSellParameters,
+  ativoUpdateSellOptionsParameters,
 };

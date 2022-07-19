@@ -5,7 +5,11 @@ const {
 const { stub } = require('sinon');
 const proxyquire = require('proxyquire');
 const { makeMockModels } = require('sequelize-test-helpers');
-const { allAssets, ativoUpdateParameters, ativoUpdateOptionsParameters } = require('../../mocks/AtivosData');
+const {
+  allAssets,
+  ativoUpdateParameters,
+  ativoUpdateOptionsParameters,
+} = require('../../mocks/AtivosData');
 const { validBody, invalidCodAtivo, invalidQtdeAtivo } = require('../../mocks/bodyRequest');
 const { newTransaction, createTransaction } = require('../../mocks/TranscoesData');
 const { foundClientAsset, ativosClienteUpdateParameter, ativosClienteUpdateOptionsParameter } = require('../../mocks/AtivosClientesData');
@@ -20,7 +24,7 @@ const services = proxyquire(
   { '../database/models': mockModels },
 );
 
-describe('tests services buyAsset', () => {
+describe('tests investimentos.services when buying asset', () => {
   describe('when valid body is passed', () => {
     describe('when asset is already in user portfolio', () => {
       beforeEach(() => {
@@ -38,7 +42,7 @@ describe('tests services buyAsset', () => {
         mockModels.AtivosClientes.update.resetHistory();
       });
       it('should return a new transaction register', async () => {
-        const buyAssetReturn = await services.buyAsset(validBody);
+        const buyAssetReturn = await services.operateAsset(validBody, 'comprar');
         expect(buyAssetReturn).to.be.an('object');
         expect(buyAssetReturn).to.have.property('idTransacao');
         expect(buyAssetReturn).to.have.property('codCliente');
@@ -51,12 +55,12 @@ describe('tests services buyAsset', () => {
       });
 
       it('should call Ativos.findByPk with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         expect(mockModels.Ativos.findByPk.calledOnceWith(validBody.codAtivo)).to.have.equal(true);
       });
 
       it('should call Transacoes.create with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         const {
           qtdeAtivo, valor, codCliente, codTipoTransacao, codAtivo,
         } = mockModels.Transacoes.create.args[0][0];
@@ -68,7 +72,7 @@ describe('tests services buyAsset', () => {
       });
 
       it('should call AtivosClientes.update with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         const { qtdeAtivo, valor } = mockModels.AtivosClientes.update.args[0][0];
         const { where } = mockModels.AtivosClientes.update.args[0][1];
         expect(qtdeAtivo).equal(ativosClienteUpdateParameter.qtdeAtivo);
@@ -77,7 +81,7 @@ describe('tests services buyAsset', () => {
       });
 
       it('should call ativos.update with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         const responseUpdateParameter = mockModels.Ativos.update.args[0][0];
         const responseOptionsParameter = mockModels.Ativos.update.args[0][1];
         expect(responseUpdateParameter.qtdeAtivo).equal(ativoUpdateParameters.qtdeAtivo);
@@ -101,7 +105,7 @@ describe('tests services buyAsset', () => {
         mockModels.AtivosClientes.update.resetHistory();
       });
       it('should return a new transaction register', async () => {
-        const buyAssetReturn = await services.buyAsset(validBody);
+        const buyAssetReturn = await services.operateAsset(validBody, 'comprar');
         expect(buyAssetReturn).to.be.an('object');
         expect(buyAssetReturn).to.have.property('idTransacao');
         expect(buyAssetReturn).to.have.property('codCliente');
@@ -114,12 +118,12 @@ describe('tests services buyAsset', () => {
       });
 
       it('should call Ativos.findByPk with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         expect(mockModels.Ativos.findByPk.calledOnceWith(validBody.codAtivo)).equal(true);
       });
 
       it('should call Transacoes.create with the correct params', async () => {
-        await services.buyAsset(validBody);
+        await services.operateAsset(validBody, 'comprar');
         const responseCreateParameter = mockModels.Transacoes.create.args[0][0];
         expect(responseCreateParameter).deep.equal(createTransaction);
       });
@@ -134,7 +138,7 @@ describe('tests services buyAsset', () => {
     });
     it('tests if throws an error when a invalid asset is passed', async () => {
       try {
-        await services.buyAsset(invalidCodAtivo);
+        await services.operateAsset(invalidCodAtivo, 'comprar');
       } catch (error) {
         expect(typeof error).to.be.equal('object');
         expect(error).to.have.property('message');
@@ -155,7 +159,7 @@ describe('tests services buyAsset', () => {
     });
     it('tests if throws an error when qtdeAtivo is larger than the asset quantity', async () => {
       try {
-        await services.buyAsset(invalidQtdeAtivo);
+        await services.operateAsset(invalidQtdeAtivo, 'comprar');
       } catch (error) {
         expect(typeof error).to.be.equal('object');
         expect(error).to.have.property('message');

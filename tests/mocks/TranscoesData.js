@@ -47,6 +47,16 @@ const newTransaction = {
   criacao: '2022-07-19T13:23:25.633Z',
 };
 
+const sellTransaction = {
+  idTransacao: 5,
+  codCliente: 1,
+  codTipoTransacao: 2,
+  codAtivo: 1,
+  valor: 68.37,
+  qtdeAtivo: 20,
+  criacao: '2022-07-19T13:23:25.633Z',
+};
+
 const createTransaction = {
   codCliente: 1,
   codTipoTransacao: 1,
@@ -59,4 +69,5 @@ module.exports = {
   allTransactions,
   newTransaction,
   createTransaction,
+  sellTransaction,
 };
