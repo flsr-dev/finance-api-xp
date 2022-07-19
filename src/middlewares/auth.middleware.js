@@ -10,7 +10,7 @@ const authenticationMiddleware = (req, res, next) => {
     throw new HttpException(StatusCodes.UNAUTHORIZED, AUTHENTICATION_ERROR_MSG);
   }
   res.local.user = user;
-  next();
+  return next();
 };
 
 module.exports = authenticationMiddleware;
