@@ -3,7 +3,7 @@ const toCamelCase = require('../utils/convertToCamelCase');
 const dtoSchemas = require('../utils/dtoSchemas');
 const joiErrorStatus = require('../utils/joiErrorStatus');
 
-const requestValidation = (req, res, next) => {
+const requestValidation = (req, _res, next) => {
   const routeName = toCamelCase(req.originalUrl);
   const { error } = dtoSchemas[routeName].validate(req.body);
   if (!error) {

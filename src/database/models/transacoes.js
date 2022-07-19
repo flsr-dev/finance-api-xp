@@ -56,9 +56,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       field: 'qtde_ativo'
     },
-    createdAt: {
+    criacao: {
       type: DataTypes.DATE,
-      field: 'criacao',
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
     }
   }, {
     sequelize,
