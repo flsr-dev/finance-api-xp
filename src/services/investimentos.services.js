@@ -57,7 +57,7 @@ const updateOrCreateClientAsset = async (requestedAsset, brokerAssetData, transa
 
 const buyAsset = async (body) => {
   const { codAtivo } = body;
-  const transactionReturn = await sequelize.transaction(async (t) => {
+  return sequelize.transaction(async (t) => {
     const brokerAssetData = await Ativos.findByPk(body.codAtivo);
     if (!brokerAssetData) {
       throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
@@ -73,7 +73,6 @@ const buyAsset = async (body) => {
     }
     return false;
   });
-  return transactionReturn;
 };
 
 module.exports = {

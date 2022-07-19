@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.use(authenticationMiddleware);
 router.post('/comprar', requestValidationMiddleware, InvestimentosControllers.buyAsset);
+router.post('/vender', requestValidationMiddleware, InvestimentosControllers.sellAsset);
 
 module.exports = router;

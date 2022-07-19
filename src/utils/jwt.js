@@ -18,8 +18,7 @@ const authenticateToken = (token) => {
   }
 
   try {
-    const authenticate = Jwt.verify(token, JWT_SECRET);
-    return authenticate;
+    return Jwt.verify(token, JWT_SECRET);
   } catch (error) {
     throw new HttpException(StatusCodes.UNAUTHORIZED, AUTHENTICATION_ERROR_MSG);
   }
