@@ -9,7 +9,7 @@ const authenticationMiddleware = (req, res, next) => {
   if (!user) {
     throw new HttpException(StatusCodes.UNAUTHORIZED, AUTHENTICATION_ERROR_MSG);
   }
-  res.local.user = user;
+  req.user = user;
   return next();
 };
 
