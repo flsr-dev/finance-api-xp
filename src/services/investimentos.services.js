@@ -4,12 +4,19 @@ const { Ativos, Transacoes, AtivosClientes } = require('../database/models');
 const config = require('../database/config/config');
 const HttpException = require('../classes/http.exception');
 const { ASSET_NOT_FOUND_MSG } = require('../utils/errorMessages');
-const isAssetEnough = require('../utils/isAssetEnough');
+const { isAssetEnough } = require('../utils/isAssetEnough');
+const { calcBrokerAmount, calcUserAmount } = require('../utils/calculateAssetAmount');
+const transactionCodes = require('../utils/transactionCodes');
 
 const sequelize = new Sequelize(config.production);
 
-const createBuyTransaction = async (requestedAsset, brokerAssetData, transaction) => {
-  const codTipoTransacao = 1;
+const createBuyTransaction = async (
+  requestedAsset,
+  brokerAssetData,
+  operationType,
+  transaction,
+) => {
+  const codTipoTransacao = transactionCodes[operationType];
   const { codCliente, codAtivo, qtdeAtivo } = requestedAsset;
   const { valor } = brokerAssetData;
 
@@ -25,7 +32,12 @@ const createBuyTransaction = async (requestedAsset, brokerAssetData, transaction
   );
 };
 
-const updateOrCreateClientAsset = async (requestedAsset, brokerAssetData, transaction) => {
+const updateOrCreateClientAsset = async (
+  requestedAsset,
+  brokerAssetData,
+  operationType,
+  transaction,
+) => {
   const { codCliente, codAtivo, qtdeAtivo } = requestedAsset;
   const { valor } = brokerAssetData;
 
@@ -38,14 +50,10 @@ const updateOrCreateClientAsset = async (requestedAsset, brokerAssetData, transa
 
   if (clientAsset) {
     const { qtdeAtivo: oldAssetAmount } = clientAsset;
-    const newAssetAmount = oldAssetAmount + qtdeAtivo;
-    return AtivosClientes.update(
-      { qtdeAtivo: newAssetAmount, valor },
-      {
-        where: { codCliente, codAtivo },
-        transaction,
-      },
-    );
+    const newAssetAmount = calcUserAmount(oldAssetAmount, qtdeAtivo, operationType);
+    const updateObject = { qtdeAtivo: newAssetAmount, valor };
+    const optionsObject = { where: { codCliente, codAtivo }, transaction };
+    return AtivosClientes.update(updateObject, optionsObject);
   }
   return AtivosClientes.create(
     {
@@ -55,26 +63,27 @@ const updateOrCreateClientAsset = async (requestedAsset, brokerAssetData, transa
   );
 };
 
-const buyAsset = async (body) => {
+const operateAsset = async (body, operationType) => {
   const { codAtivo } = body;
   return sequelize.transaction(async (t) => {
     const brokerAssetData = await Ativos.findByPk(body.codAtivo);
     if (!brokerAssetData) {
       throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
     }
-    const isAssetAvailable = isAssetEnough(body, brokerAssetData);
+    const isAssetAvailable = await isAssetEnough(body, brokerAssetData, operationType);
 
     if (isAssetAvailable) {
-      const newAssetAmount = brokerAssetData.qtdeAtivo - body.qtdeAtivo;
-      const buyTransaction = await createBuyTransaction(body, brokerAssetData, t);
+      const { qtdeAtivo: brokerStoredAsset } = brokerAssetData;
+      const newAssetAmount = calcBrokerAmount(brokerStoredAsset, body.qtdeAtivo, operationType);
       await Ativos.update({ qtdeAtivo: newAssetAmount }, { where: { codAtivo }, transaction: t });
-      await updateOrCreateClientAsset(body, brokerAssetData, t);
-      return buyTransaction;
+      await updateOrCreateClientAsset(body, brokerAssetData, operationType, t);
+      return createBuyTransaction(body, brokerAssetData, operationType, t);
     }
+
     return false;
   });
 };
 
 module.exports = {
-  buyAsset,
+  operateAsset,
 };

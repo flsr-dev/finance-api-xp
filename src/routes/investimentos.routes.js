@@ -6,7 +6,7 @@ const requestValidationMiddleware = require('../middlewares/requestValidation.mi
 const router = express.Router();
 
 router.use(authenticationMiddleware);
-router.post('/comprar', requestValidationMiddleware, InvestimentosControllers.buyAsset);
-router.post('/vender', requestValidationMiddleware, InvestimentosControllers.sellAsset);
+router.post('/comprar', requestValidationMiddleware, InvestimentosControllers.operateAsset);
+router.post('/vender', requestValidationMiddleware, InvestimentosControllers.operateAsset);
 
 module.exports = router;
