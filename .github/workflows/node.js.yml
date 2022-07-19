@@ -26,6 +26,8 @@ jobs:
   build:
     needs: eslint
     runs-on: ubuntu-20.04
+    env:
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
