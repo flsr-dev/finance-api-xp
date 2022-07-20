@@ -13,7 +13,6 @@ const {
   DB_USER_DEV,
 } = process.env;
 
-console.log(DB_USER_DEV);
 module.exports = {
   development: {
     username: DB_USER_DEV,

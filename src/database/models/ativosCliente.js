@@ -3,43 +3,43 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class AtivosContas extends Model {
+  class AtivosClientes extends Model {
     static associate(models) {
       models.Ativos.belongsToMany(
-        models.Contas,
+        models.Clientes,
         {
-          as: 'contas',
-          through: AtivosContas,
+          as: 'clientes',
+          through: AtivosClientes,
           foreignKey: 'cod_ativo',
-          otherKey: 'cod_conta',
+          otherKey: 'cod_cliente',
         }
       );
-      models.Contas.belongsToMany(
+      models.Clientes.belongsToMany(
         models.Ativos,
         {
           as: 'ativos',
-          through: AtivosContas,
-          foreignKey: 'cod_conta',
+          through: AtivosClientes,
+          foreignKey: 'cod_cliente',
           otherKey: 'cod_ativo',
         }
       );
     }
   }
-  AtivosContas.init({
-    codConta: {
+  AtivosClientes.init({
+    codCliente: {
       allowNull: false,
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: 'Contas',
-        key: 'cod_conta'
+        model: 'Clientes',
+        key: 'cod_cliente'
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
-      field: 'cod_conta'
+      field: 'cod_cliente'
     },
     codAtivo: {
       allowNull: false,
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       references: {
         model: 'Ativos',
         key: 'cod_ativo'
@@ -49,13 +49,16 @@ module.exports = (sequelize, DataTypes) => {
       field: 'cod_ativo'
     },
     valor: DataTypes.DECIMAL(19, 2),
-    qtde_ativo: DataTypes.INTEGER
+    qtdeAtivo: {
+      type: DataTypes.INTEGER,
+      field: 'qtde_ativo'
+    }
   }, {
     sequelize,
-    modelName: 'AtivosContas',
-    tableName: 'AtivosContas',
+    modelName: 'AtivosClientes',
+    tableName: 'AtivosClientes',
     timestamps: false,
     underscored: true,
   });
-  return AtivosContas;
+  return AtivosClientes;
 };

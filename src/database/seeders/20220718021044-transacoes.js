@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('Transacoes', 
       [
         {
-          cod_conta: 1,
+          cod_cliente: 1,
           cod_tipo_transacao: 1,
           cod_ativo: 1,
           valor: 68.37,
@@ -14,7 +14,7 @@ module.exports = {
           criacao: new Date('2011-08-01T19:58:00.000Z'),
         },
         {
-          cod_conta: 1,
+          cod_cliente: 1,
           cod_tipo_transacao: 2,
           cod_ativo: 2,
           valor: 27.96,
@@ -22,7 +22,7 @@ module.exports = {
           criacao: new Date('2011-08-01T19:58:00.000Z'),
         },
         {
-          cod_conta: 2,
+          cod_cliente: 2,
           cod_tipo_transacao: 2,
           cod_ativo: 2,
           valor: 27.96,
@@ -30,7 +30,7 @@ module.exports = {
           criacao: new Date('2011-08-01T19:58:00.000Z'),
         },
         {
-          cod_conta: 2,
+          cod_cliente: 2,
           cod_tipo_transacao: 1,
           cod_ativo: 1,
           valor: 68.37,

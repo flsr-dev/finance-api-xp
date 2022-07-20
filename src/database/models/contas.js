@@ -8,10 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         models.Clientes,
         {foreignKey: "cod_cliente", as: 'cliente'}
       );
-      Contas.hasMany(
-        models.Transacoes,
-        {foreignKey: "cod_conta", as: 'transacoes'}
-      );
+
       Contas.hasMany(
         models.Operacoes,
         {foreignKey: "cod_conta", as: 'operacoes'}
@@ -33,12 +30,12 @@ module.exports = (sequelize, DataTypes) => {
     valor: DataTypes.DECIMAL(19, 2),
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'criacao',
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'atualizacao'
     },
     ativo: DataTypes.BOOLEAN,

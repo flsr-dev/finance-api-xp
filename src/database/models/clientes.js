@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Clientes.hasMany(
         models.Contas,
-        {foreignKey: cod_cliente, as: 'contas'},
+        {foreignKey: 'cod_cliente', as: 'contas'},
+      );
+      Clientes.hasMany(
+        models.Transacoes,
+        {foreignKey: "cod_cliente", as: 'transacoes'}
       );
     }
   }

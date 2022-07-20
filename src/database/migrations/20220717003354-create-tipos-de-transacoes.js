@@ -1,15 +1,17 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TiposDeTransacoes', {
-      cod_tipo_transacao: {
+      codTipoTransacao: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'cod_tipo_transacao'
       },
-      tipo_transacao: {
+      tipoTransacao: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        field: 'tipo_transacao'
       },
     });
   },

@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
       Transacoes.belongsTo(
-        models.Contas,
+        models.Clientes,
         {
-          foreignKey: 'cod_conta',
-          as: 'contas'
+          foreignKey: 'cod_cliente',
+          as: 'cliente'
         }
       );
     }
@@ -23,31 +23,28 @@ module.exports = (sequelize, DataTypes) => {
   Transacoes.init({
     idTransacao: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
       field: 'id_transacao',
     },
     codTipoTransacao: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'TiposDeTransacoes',
         key: 'cod_tipo_transacao'
       },
       field: 'cod_tipo_transacao',
     },
-    codConta: {
+    codCliente: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        model: 'Contas',
-        key: 'cod_conta'
+        model: 'Clientes',
+        key: 'cod_cliente'
       },
-      field: 'cod_conta',
+      field: 'cod_cliente',
     },
     codAtivo: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'Ativos',
         key: 'cod_ativo'
@@ -55,11 +52,14 @@ module.exports = (sequelize, DataTypes) => {
       field: 'cod_ativo',
     },
     valor: DataTypes.DECIMAL(19, 2),
-    qtde_ativo: DataTypes.INTEGER,
-    createdAt: {
+    qtdeAtivo: {
+      type: DataTypes.INTEGER,
+      field: 'qtde_ativo'
+    },
+    criacao: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       allowNull: false,
-      type: Sequelize.DATE,
-      field: 'criacao',
     }
   }, {
     sequelize,
