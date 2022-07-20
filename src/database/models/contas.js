@@ -27,7 +27,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: true,
       field: 'cod_cliente',
     },
-    valor: DataTypes.DECIMAL(19, 2),
+    valor: {
+      type: DataTypes.DECIMAL(19, 2),
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
