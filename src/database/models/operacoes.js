@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'cod_conta'
     },
-    valor:{type: DataTypes.DECIMAL(19, 2),
+    valor:{
+      type: DataTypes.DECIMAL(19, 2),
       get() {
         const value = this.getDataValue('valor');
         return value === null ? null : parseFloat(value);
