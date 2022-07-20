@@ -11,9 +11,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-  envFile: 
-
-
   eslint:
     needs: envFile
     name: eslint
