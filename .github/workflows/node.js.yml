@@ -12,7 +12,6 @@ on:
 
 jobs:
   eslint:
-    needs: envFile
     name: eslint
     runs-on: ubuntu-20.04
     steps:
@@ -28,7 +27,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [ 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -36,19 +35,17 @@ jobs:
     - name: envFile
       run: |
         touch .env
-        echo DB_PWD=${{secrets.DB_PWD}} >> .env
-        echo DB_HOST=${{secrets.DB_HOST}} >> .env
-        echo DB_NAME=${{secrets.DB_NAME}} >> .env
-        echo DB_USER=${{secrets.DB_USER}} >> .env
-        echo DB_PORT=${{secrets.DB_PORT}} >> .env
-
-        echo DB_PWD_DEV=${{secrets.DB_PWD_DEV}} >> .env
-        echo DB_HOST_DEV=${{secrets.DB_HOST_DEV}} >> .env
-        echo DB_NAME_DEV=${{secrets.DB_NAME_DEV}} >> .env
-        echo DB_USER_DEV=${{secrets.DB_USER_DEV}} >> .env
-        echo DB_PORT_DEV=${{secrets.DB_PORT_DEV}} >> .env
-
-        echo JWT_SECRET=${{secrets.JWT_SECRET}} >> .env
+        echo "DB_PWD=${{secrets.DB_PWD}}" >> .env
+        echo "DB_HOST=${{secrets.DB_HOST}}" >> .env
+        echo "DB_NAME=${{secrets.DB_NAME}}" >> .env
+        echo "DB_USER=${{secrets.DB_USER}}" >> .env
+        echo "DB_PORT=${{secrets.DB_PORT}}" >> .env
+        echo "DB_PWD_DEV=${{secrets.DB_PWD_DEV}}" >> .env
+        echo "DB_HOST_DEV=${{secrets.DB_HOST_DEV}}" >> .env
+        echo "DB_NAME_DEV=${{secrets.DB_NAME_DEV}}" >> .env
+        echo "DB_USER_DEV=${{secrets.DB_USER_DEV}}" >> .env
+        echo "DB_PORT_DEV=${{secrets.DB_PORT_DEV}}" >> .env
+        echo "JWT_SECRET=${{secrets.JWT_SECRET}}" >> .env
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
