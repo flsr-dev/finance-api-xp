@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 module.exports = {
+
   investimentosComprar: Joi
     .object(
       {
@@ -13,6 +14,7 @@ module.exports = {
       'any.required': '{{#label}} is required',
       'number.min': '{{#label}} must be greater than or equal to 1',
     }),
+
   investimentosVender: Joi
     .object(
       {
@@ -25,4 +27,10 @@ module.exports = {
       'any.required': '{{#label}} is required',
       'number.min': '{{#label}} must be greater than or equal to 1',
     }),
+
+  clientesAtivos: Joi.object({
+    codCliente: Joi.number().required(),
+  }).messages({
+    'any.required': '{{#label}} is required',
+  }),
 };
