@@ -6,4 +6,5 @@ module.exports = {
   CLIENT_CODE_NOT_FOUND_MSG: '"codCliente" is missing from request',
   CLIENT_NOT_FOUND_MSG: 'Client not found',
   FORBIDDEN_MSG: 'Client not authorized to perform this action',
+  CLIENT_WITHOUT_ASSETS_MSG: 'Client has no assets',
 };

@@ -33,4 +33,10 @@ module.exports = {
   }).messages({
     'any.required': '{{#label}} is required',
   }),
+
+  assetsAtivos: Joi.object({
+    codAtivo: Joi.number().required(),
+  }).messages({
+    'any.required': '{{#label}} is required',
+  }),
 };

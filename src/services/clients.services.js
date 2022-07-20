@@ -21,4 +21,5 @@ const getAssetsByClient = async ({ codCliente }, { id: userCode }) => {
 
 module.exports = {
   getAssetsByClient,
+  checkIfClientExists,
 };
