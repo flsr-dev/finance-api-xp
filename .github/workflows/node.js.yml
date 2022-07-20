@@ -46,7 +46,6 @@ jobs:
         echo DB_USER_DEV=${{secrets.DB_USER_DEV}} >> .env
         echo DB_PORT_DEV=${{secrets.DB_PORT_DEV}} >> .env
         echo JWT_SECRET=${{secrets.JWT_SECRET}} >> .env
-        cat .env
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
