@@ -6,11 +6,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Clientes.hasMany(
         models.Contas,
-        {foreignKey: 'cod_cliente', as: 'contas'},
+        {foreignKey: 'codCliente', as: 'contas'},
       );
       Clientes.hasMany(
         models.Transacoes,
-        {foreignKey: "cod_cliente", as: 'transacoes'}
+        {foreignKey: "codCliente", as: 'transacoes'}
+      );
+      Clientes.hasMany(
+        models.Operacoes,
+        {foreignKey: "codCliente", as: 'operacoes'}
       );
     }
   }

@@ -1,29 +1,32 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Operacoes', {
-      id_operacao: {
+      idOperacao: {
         allowNull: false,
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        field: 'id_operacao'
       },
-      cod_conta: {
+      codConta: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Contas',
           key: 'cod_conta'
         },
+        field: 'cod_conta',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      cod_tipo_operacao: {
+      codTipoOperacao: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'TiposDeOperacoes',
           key: 'cod_tipo_operacao'
         },
+        field: 'cod_tipo_operacao',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },

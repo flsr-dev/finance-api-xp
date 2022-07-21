@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   AtivosClientes.init({
     codCliente: {
-      allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'Clientes',
@@ -37,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       field: 'cod_cliente'
     },
     codAtivo: {
-      allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'Ativos',

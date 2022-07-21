@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     codTipoOperacao: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
       field: 'cod_tipo_operacao',
     },

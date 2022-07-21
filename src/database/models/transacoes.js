@@ -7,14 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       Transacoes.belongsTo(
         models.TiposDeTransacoes,
         {
-          foreignKey: 'cod_tipo_transacao',
+          foreignKey: 'codTipoTransacao',
           as: 'tipoDeTransacao'
         }
       );
       Transacoes.belongsTo(
         models.Clientes,
         {
-          foreignKey: 'cod_cliente',
+          foreignKey: 'codCliente',
           as: 'cliente'
         }
       );

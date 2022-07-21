@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Ativos.init({
     codAtivo: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
       field: 'cod_ativo',
     },

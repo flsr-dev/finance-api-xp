@@ -6,25 +6,26 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Contas.belongsTo(
         models.Clientes,
-        {foreignKey: "cod_cliente", as: 'cliente'}
-      );
-
-      Contas.hasMany(
-        models.Operacoes,
-        {foreignKey: "cod_conta", as: 'operacoes'}
+        {foreignKey: 'codCliente', as: 'cliente'}
       );
     }
   }
   Contas.init({
     codConta: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
-      field: 'cod_conta',
+      autoIncrement: true,
+      field: 'cod_conta'
     },
     codCliente: {
       type: DataTypes.INTEGER,
       foreignKey: true,
+      references: {
+        model: 'Clientes',
+        key: 'cod_cliente'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       field: 'cod_cliente',
     },
     valor: {
@@ -34,15 +35,15 @@ module.exports = (sequelize, DataTypes) => {
         return value === null ? null : parseFloat(value);
       }
     },
-    createdAt: {
+    atualizacao: {
       allowNull: false,
       type: DataTypes.DATE,
-      field: 'criacao',
+      defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    criacao: {
       allowNull: false,
       type: DataTypes.DATE,
-      field: 'atualizacao'
+      defaultValue: DataTypes.NOW,
     },
     ativo: DataTypes.BOOLEAN,
   }, {
