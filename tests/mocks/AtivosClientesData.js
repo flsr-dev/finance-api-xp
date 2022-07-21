@@ -28,6 +28,21 @@ const allClientsAssets = [
   },
 ];
 
+const clientAssets = [
+  {
+    codCliente: 1,
+    codAtivo: 1,
+    valor: 68.37,
+    qtdeAtivo: 32,
+  },
+  {
+    codCliente: 1,
+    codAtivo: 2,
+    valor: 27.96,
+    qtdeAtivo: 102,
+  },
+];
+
 const foundClientAsset = {
   codCliente: 1,
   codAtivo: 1,
@@ -55,4 +70,5 @@ module.exports = {
   newAssetAmount,
   ativosClienteUpdateOptionsParameter,
   ativosClienteUpdateParameter,
+  clientAssets,
 };
