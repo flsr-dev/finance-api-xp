@@ -8,14 +8,14 @@ module.exports = {
         autoIncrement: true,
         field: 'id_operacao'
       },
-      codConta: {
+      codCliente: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Contas',
-          key: 'cod_conta'
+          model: 'Clientes',
+          key: 'cod_cliente'
         },
-        field: 'cod_conta',
+        field: 'cod_cliente',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
