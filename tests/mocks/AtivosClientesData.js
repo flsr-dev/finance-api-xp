@@ -1,3 +1,4 @@
+const { stub } = require('sinon');
 const { foundAsset } = require('./AtivosData');
 const { validBody } = require('./bodyRequest');
 
@@ -48,6 +49,7 @@ const foundClientAsset = {
   codAtivo: 1,
   valor: 68.37,
   qtdeAtivo: 32,
+  save: stub(),
 };
 
 const newAssetAmount = foundClientAsset.qtdeAtivo + validBody.qtdeAtivo;

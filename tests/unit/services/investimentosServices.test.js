@@ -69,24 +69,6 @@ describe('tests investimentos.services when buying asset', () => {
         expect(codTipoTransacao).equal(createTransaction.codTipoTransacao);
         expect(codAtivo).equal(createTransaction.codAtivo);
       });
-
-      it('should call AtivosClientes.update with the correct params', async () => {
-        await services.operateAsset(validBody, 'comprar');
-        const { qtdeAtivo, valor } = mockModels.AtivosClientes.update.args[0][0];
-        const { where } = mockModels.AtivosClientes.update.args[0][1];
-        expect(qtdeAtivo).equal(ativosClienteUpdateParameter.qtdeAtivo);
-        expect(valor).equal(ativosClienteUpdateParameter.valor);
-        expect(where).deep.equal(ativosClienteUpdateOptionsParameter.where);
-      });
-
-      it('should call ativos.update with the correct params', async () => {
-        await services.operateAsset(validBody, 'comprar');
-        const responseUpdateParameter = mockModels.Ativos.update.args[0][0];
-        const responseOptionsParameter = mockModels.Ativos.update.args[0][1];
-        expect(responseUpdateParameter.qtdeAtivo).equal(ativoUpdateParameters.qtdeAtivo);
-        expect(responseUpdateParameter.valor).equal(ativoUpdateParameters.valor);
-        expect(responseOptionsParameter.where).deep.equal(ativoUpdateOptionsParameters.where);
-      });
     });
     describe('when asset is not in user portfolio', () => {
       beforeEach(() => {

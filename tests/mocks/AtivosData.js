@@ -1,3 +1,4 @@
+const { stub } = require('sinon');
 const { validBody } = require('./bodyRequest');
 
 const allAssets = [
@@ -8,6 +9,7 @@ const allAssets = [
     criacao: new Date('2011-08-01T19:58:00.000Z'),
     atualizacao: new Date('2011-08-01T19:58:00.000Z'),
     qtdeAtivo: 20185,
+    save: stub(),
   },
   {
     simboloAtivo: 'PETR4',
@@ -15,6 +17,7 @@ const allAssets = [
     criacao: new Date('2011-08-01T19:58:00.000Z'),
     atualizacao: new Date('2011-08-01T19:58:00.000Z'),
     qtdeAtivo: 2000,
+    save: stub(),
   },
 ];
 

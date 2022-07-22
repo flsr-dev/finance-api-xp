@@ -8,7 +8,7 @@ const proxyquire = require('proxyquire').noCallThru();
 const mockJWt = { authenticateToken: stub() };
 
 const Jwt = proxyquire(
-  '../../../src/middlewares/auth.middleware',
+  '../../../src/middlewares/authentication.middleware',
   { '../utils/jwt': mockJWt },
 );
 
