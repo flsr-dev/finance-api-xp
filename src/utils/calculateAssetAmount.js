@@ -12,7 +12,11 @@ const calcUserAmount = (brokerAssetAmount, operationAmount, transactionType) => 
   userSideOperations[transactionType](brokerAssetAmount, operationAmount)
 );
 
-const calcBrokerAmount = (brokerAssetAmount, operationAmount, transactionType) => (
+const calcBrokerAmount = (
+  { qtdeAtivo: brokerAssetAmount },
+  { qtdeAtivo: operationAmount },
+  transactionType,
+) => (
   brokerSideOperations[transactionType](brokerAssetAmount, operationAmount)
 );
 module.exports = {

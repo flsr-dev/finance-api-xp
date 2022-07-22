@@ -6,6 +6,14 @@ const { isAssetEnough } = require('../utils/isAssetEnough');
 const { calcBrokerAmount, calcUserAmount } = require('../utils/calculateAssetAmount');
 const transactionCodes = require('../utils/transactionCodes');
 
+const getAsset = async (codAtivo) => {
+  const brokerAssetData = await Ativos.findByPk(codAtivo);
+  if (!brokerAssetData) {
+    throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
+  }
+  return brokerAssetData;
+};
+
 const createBuyTransaction = async (
   requestedAsset,
   brokerAssetData,
@@ -61,17 +69,12 @@ const updateOrCreateClientAsset = async (
 
 const operateAsset = async (body, operationType, seqTransaction) => {
   const { codAtivo } = body;
-
-  const brokerAssetData = await Ativos.findByPk(body.codAtivo);
-  if (!brokerAssetData) {
-    throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
-  }
+  const brokerAssetData = await getAsset(codAtivo);
   const isAssetAvailable = await isAssetEnough(body, brokerAssetData, operationType);
 
   if (isAssetAvailable) {
-    const { qtdeAtivo: brokerStoredAsset } = brokerAssetData;
-    const newAssetAmount = calcBrokerAmount(brokerStoredAsset, body.qtdeAtivo, operationType);
-    await Ativos.update({ qtdeAtivo: newAssetAmount }, { where: { codAtivo }, transaction: seqTransaction });
+    brokerAssetData.qtdeAtivo = calcBrokerAmount(brokerAssetData, body, operationType);
+    brokerAssetData.save({ transaction: seqTransaction });
     await updateOrCreateClientAsset(body, brokerAssetData, operationType, seqTransaction);
     return createBuyTransaction(body, brokerAssetData, operationType, seqTransaction);
   }
