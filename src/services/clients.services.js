@@ -1,7 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const HttpException = require('../classes/http.exception');
 const { AtivosClientes, Clientes } = require('../database/models');
-const { checkIfClientIsAuthorized } = require('../utils/checkClientAuthorization');
 const { CLIENT_NOT_FOUND_MSG } = require('../utils/errorMessages');
 
 const checkIfClientExists = async (codCliente) => {
@@ -12,10 +11,8 @@ const checkIfClientExists = async (codCliente) => {
   return true;
 };
 
-const getAssetsByClient = async ({ codCliente }, { codCliente: userCode }) => {
-  checkIfClientIsAuthorized(codCliente, userCode);
+const getAssetsByClient = async ({ codCliente }) => {
   checkIfClientExists(codCliente);
-
   return AtivosClientes.findAll({ where: { codCliente } });
 };
 

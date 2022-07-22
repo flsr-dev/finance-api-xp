@@ -4,7 +4,6 @@ const { FORBIDDEN_MSG } = require('./errorMessages');
 
 const checkIfClientIsAuthorized = (codCliente, userCode) => {
   if (+codCliente === +userCode) {
-    console.log(codCliente, userCode);
     return true;
   }
   throw new HttpException(StatusCodes.FORBIDDEN, FORBIDDEN_MSG);
