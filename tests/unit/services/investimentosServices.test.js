@@ -1,4 +1,4 @@
-const chai = require('chai');
+const { expect } = require('chai');
 const {
   describe, it, beforeEach, afterEach,
 } = require('mocha');
@@ -14,7 +14,6 @@ const { validBody, invalidCodAtivo, invalidQtdeAtivo } = require('../../mocks/bo
 const { newTransaction, createTransaction } = require('../../mocks/TranscoesData');
 const { foundClientAsset, ativosClienteUpdateParameter, ativosClienteUpdateOptionsParameter } = require('../../mocks/AtivosClientesData');
 
-const { expect } = chai;
 const AtivosClientes = { findOne: stub(), create: stub(), update: stub() };
 const Transacoes = { create: stub() };
 const Ativos = { findByPk: stub(), update: stub() };
