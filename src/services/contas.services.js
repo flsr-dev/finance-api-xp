@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const HttpException = require('../classes/http.exception');
 const { Contas, Operacoes } = require('../database/models');
-const { CLIENT_NOT_FOUND_MSG } = require('../utils/errorMessages');
+const { CLIENT_NOT_FOUND_MSG, INSUFICIENT_FUNDS_MSG } = require('../utils/errorMessages');
 const operationCodes = require('../utils/operationCodes');
 
 const getAccount = async (codCliente) => {
@@ -27,7 +27,11 @@ const createNewAccountOperation = (account, valor, operationType, seqTransaction
 
 const accountBalanceOperation = async ({ codCliente, valor }, operationType, seqTransaction) => {
   const account = await getAccount(codCliente);
-  account.valor = calcNewBalance(account, valor, operationType);
+  const newBalance = calcNewBalance(account, valor, operationType);
+  if (newBalance < 0) {
+    throw new HttpException(StatusCodes.BAD_REQUEST, INSUFICIENT_FUNDS_MSG);
+  }
+  account.valor = newBalance;
   account.save({ transaction: seqTransaction });
   return createNewAccountOperation(account, valor, operationType, seqTransaction);
 };

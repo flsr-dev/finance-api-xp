@@ -7,4 +7,5 @@ module.exports = {
   CLIENT_NOT_FOUND_MSG: 'Client not found',
   FORBIDDEN_MSG: 'Client not authorized to perform this action',
   CLIENT_WITHOUT_ASSETS_MSG: 'Client has no assets',
+  INSUFICIENT_FUNDS_MSG: 'Insufficient funds',
 };
