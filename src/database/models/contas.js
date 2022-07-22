@@ -6,37 +6,44 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Contas.belongsTo(
         models.Clientes,
-        {foreignKey: "cod_cliente", as: 'cliente'}
-      );
-
-      Contas.hasMany(
-        models.Operacoes,
-        {foreignKey: "cod_conta", as: 'operacoes'}
+        {foreignKey: 'codCliente', as: 'cliente'}
       );
     }
   }
   Contas.init({
     codConta: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
-      field: 'cod_conta',
+      autoIncrement: true,
+      field: 'cod_conta'
     },
     codCliente: {
       type: DataTypes.INTEGER,
       foreignKey: true,
+      references: {
+        model: 'Clientes',
+        key: 'cod_cliente'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       field: 'cod_cliente',
     },
-    valor: DataTypes.DECIMAL(19, 2),
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'criacao',
+    valor: {
+      type: DataTypes.DECIMAL(19, 2),
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
     },
-    updatedAt: {
+    atualizacao: {
       allowNull: false,
       type: DataTypes.DATE,
-      field: 'atualizacao'
+      defaultValue: DataTypes.NOW,
+    },
+    criacao: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     ativo: DataTypes.BOOLEAN,
   }, {

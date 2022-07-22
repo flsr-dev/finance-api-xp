@@ -16,8 +16,14 @@ const invalidQtdeAtivo = {
   qtdeAtivo: 2000000000000,
 };
 
+const newAccountOperation = {
+  codCliente: 1,
+  valor: 11.20,
+};
+
 module.exports = {
   validBody,
   invalidCodAtivo,
   invalidQtdeAtivo,
+  newAccountOperation,
 };

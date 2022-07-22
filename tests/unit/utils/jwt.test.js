@@ -4,7 +4,7 @@ const { authenticateToken, createToken } = require('../../../src/utils/jwt');
 
 describe('Test jwt', () => {
   const payload = {
-    id: 1,
+    codCliente: 1,
     email: 'user@email.com',
     name: 'User',
   };
@@ -37,7 +37,7 @@ describe('Test jwt', () => {
       const token = createToken(payload);
       const user = authenticateToken(token);
       expect(user).to.be.an('object');
-      expect(user).to.have.property('id');
+      expect(user).to.have.property('codCliente');
       expect(user).to.have.property('email');
       expect(user).to.have.property('name');
     });

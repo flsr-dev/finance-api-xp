@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Ativos.init({
     codAtivo: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
       field: 'cod_ativo',
     },
@@ -31,7 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'qtde_ativo',
     },
-    valor: DataTypes.DECIMAL(19, 2)
+    valor: {
+      type: DataTypes.DECIMAL(19, 2),
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
+    }
   }, {
     sequelize,
     modelName: 'Ativos',

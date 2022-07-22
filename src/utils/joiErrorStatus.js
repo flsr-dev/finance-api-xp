@@ -9,4 +9,6 @@ module.exports = {
   'number.min': StatusCodes.UNPROCESSABLE_ENTITY,
   'string.base': StatusCodes.UNPROCESSABLE_ENTITY,
   'string.min': StatusCodes.UNPROCESSABLE_ENTITY,
+  'number.greater': StatusCodes.UNPROCESSABLE_ENTITY,
+  'number.precision': StatusCodes.UNPROCESSABLE_ENTITY,
 };

@@ -1,14 +1,18 @@
-const Sequelize = require('sequelize');
 const { StatusCodes } = require('http-status-codes');
 const { Ativos, Transacoes, AtivosClientes } = require('../database/models');
-const config = require('../database/config/config');
 const HttpException = require('../classes/http.exception');
 const { ASSET_NOT_FOUND_MSG } = require('../utils/errorMessages');
 const { isAssetEnough } = require('../utils/isAssetEnough');
 const { calcBrokerAmount, calcUserAmount } = require('../utils/calculateAssetAmount');
 const transactionCodes = require('../utils/transactionCodes');
 
-const sequelize = new Sequelize(config.production);
+const getAsset = async (codAtivo) => {
+  const brokerAssetData = await Ativos.findByPk(codAtivo);
+  if (!brokerAssetData) {
+    throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
+  }
+  return brokerAssetData;
+};
 
 const createBuyTransaction = async (
   requestedAsset,
@@ -49,11 +53,9 @@ const updateOrCreateClientAsset = async (
   );
 
   if (clientAsset) {
-    const { qtdeAtivo: oldAssetAmount } = clientAsset;
-    const newAssetAmount = calcUserAmount(oldAssetAmount, qtdeAtivo, operationType);
-    const updateObject = { qtdeAtivo: newAssetAmount, valor };
-    const optionsObject = { where: { codCliente, codAtivo }, transaction };
-    return AtivosClientes.update(updateObject, optionsObject);
+    clientAsset.qtdeAtivo = calcUserAmount(clientAsset, qtdeAtivo, operationType);
+    clientAsset.valor = valor;
+    return clientAsset.save({ transaction });
   }
   return AtivosClientes.create(
     {
@@ -63,25 +65,18 @@ const updateOrCreateClientAsset = async (
   );
 };
 
-const operateAsset = async (body, operationType) => {
+const operateAsset = async (body, operationType, seqTransaction) => {
   const { codAtivo } = body;
-  return sequelize.transaction(async (t) => {
-    const brokerAssetData = await Ativos.findByPk(body.codAtivo);
-    if (!brokerAssetData) {
-      throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
-    }
-    const isAssetAvailable = await isAssetEnough(body, brokerAssetData, operationType);
+  const brokerAssetData = await getAsset(codAtivo);
+  const isAssetAvailable = await isAssetEnough(body, brokerAssetData, operationType);
 
-    if (isAssetAvailable) {
-      const { qtdeAtivo: brokerStoredAsset } = brokerAssetData;
-      const newAssetAmount = calcBrokerAmount(brokerStoredAsset, body.qtdeAtivo, operationType);
-      await Ativos.update({ qtdeAtivo: newAssetAmount }, { where: { codAtivo }, transaction: t });
-      await updateOrCreateClientAsset(body, brokerAssetData, operationType, t);
-      return createBuyTransaction(body, brokerAssetData, operationType, t);
-    }
-
-    return false;
-  });
+  if (isAssetAvailable) {
+    brokerAssetData.qtdeAtivo = calcBrokerAmount(brokerAssetData, body, operationType);
+    brokerAssetData.save({ transaction: seqTransaction });
+    await updateOrCreateClientAsset(body, brokerAssetData, operationType, seqTransaction);
+    return createBuyTransaction(body, brokerAssetData, operationType, seqTransaction);
+  }
+  return false;
 };
 
 module.exports = {

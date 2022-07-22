@@ -4,17 +4,22 @@ const userSideOperations = {
 };
 
 const brokerSideOperations = {
-  comprar: (brokerAssetAmount, operationAmount) => brokerAssetAmount - operationAmount,
-  vender: (brokerAssetAmount, operationAmount) => brokerAssetAmount + operationAmount,
+  comprar: (assetAmount, operationAmount) => assetAmount - operationAmount,
+  vender: (assetAmount, operationAmount) => assetAmount + operationAmount,
 };
 
-const calcUserAmount = (brokerAssetAmount, operationAmount, transactionType) => (
-  userSideOperations[transactionType](brokerAssetAmount, operationAmount)
+const calcUserAmount = ({ qtdeAtivo: userAssetAmount }, operationAmount, transactionType) => (
+  userSideOperations[transactionType](userAssetAmount, operationAmount)
 );
 
-const calcBrokerAmount = (brokerAssetAmount, operationAmount, transactionType) => (
+const calcBrokerAmount = (
+  { qtdeAtivo: brokerAssetAmount },
+  { qtdeAtivo: operationAmount },
+  transactionType,
+) => (
   brokerSideOperations[transactionType](brokerAssetAmount, operationAmount)
 );
+
 module.exports = {
   calcUserAmount,
   calcBrokerAmount,

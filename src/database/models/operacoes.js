@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
       Operacoes.hasMany(
         models.TiposDeOperacoes,
         {
-          foreignKey: 'cod_tipo_operacao',
+          foreignKey: 'codTipoOperacao',
           as: 'tiposDeOperacoes'
         }
       );
-      Operacoes.hasMany(
-        models.Contas,
+      Operacoes.belongsTo(
+        models.Clientes,
         {
-          foreignKey: 'cod_conta',
-          as: 'contas'
+          foreignKey: 'codCliente',
+          as: 'cliente'
         }
       );
     }
@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
       field: 'id_operacao'
-
     },
     codTipoOperacao: {
       type: DataTypes.INTEGER,
@@ -34,13 +33,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'cod_tipo_operacao'
     },
-    codConta: {
+    codCliente: {
       type: DataTypes.INTEGER,
       foreignKey: true,
       allowNull: false,
-      field: 'cod_conta'
+      field: 'cod_cliente'
     },
-    valor: DataTypes.DECIMAL(19, 2),
+    valor:{
+      type: DataTypes.DECIMAL(19, 2),
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     criacao: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

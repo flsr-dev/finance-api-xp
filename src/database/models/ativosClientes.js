@@ -1,4 +1,3 @@
-'use strict';
 const {
   Model
 } = require('sequelize');
@@ -10,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         {
           as: 'clientes',
           through: AtivosClientes,
-          foreignKey: 'cod_ativo',
-          otherKey: 'cod_cliente',
+          foreignKey: 'codAtivo',
+          otherKey: 'codCliente',
         }
       );
       models.Clientes.belongsToMany(
@@ -19,15 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         {
           as: 'ativos',
           through: AtivosClientes,
-          foreignKey: 'cod_cliente',
-          otherKey: 'cod_ativo',
+          foreignKey: 'codCliente',
+          otherKey: 'codAtivo',
         }
       );
     }
   }
   AtivosClientes.init({
     codCliente: {
-      allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'Clientes',
@@ -38,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       field: 'cod_cliente'
     },
     codAtivo: {
-      allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'Ativos',
@@ -48,7 +45,13 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       field: 'cod_ativo'
     },
-    valor: DataTypes.DECIMAL(19, 2),
+    valor: {
+      type: DataTypes.DECIMAL(19, 2),
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     qtdeAtivo: {
       type: DataTypes.INTEGER,
       field: 'qtde_ativo'

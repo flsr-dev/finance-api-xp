@@ -7,14 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       Transacoes.belongsTo(
         models.TiposDeTransacoes,
         {
-          foreignKey: 'cod_tipo_transacao',
+          foreignKey: 'codTipoTransacao',
           as: 'tipoDeTransacao'
         }
       );
       Transacoes.belongsTo(
         models.Clientes,
         {
-          foreignKey: 'cod_cliente',
+          foreignKey: 'codCliente',
           as: 'cliente'
         }
       );
@@ -51,7 +51,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       field: 'cod_ativo',
     },
-    valor: DataTypes.DECIMAL(19, 2),
+    valor:{
+      type: DataTypes.DECIMAL(19, 2), 
+      get() {
+        const value = this.getDataValue('valor');
+        return value === null ? null : parseFloat(value);
+      }
+      
+    },
     qtdeAtivo: {
       type: DataTypes.INTEGER,
       field: 'qtde_ativo'

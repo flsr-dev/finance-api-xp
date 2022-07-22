@@ -1,3 +1,4 @@
+const { stub } = require('sinon');
 const { foundAsset } = require('./AtivosData');
 const { validBody } = require('./bodyRequest');
 
@@ -28,11 +29,27 @@ const allClientsAssets = [
   },
 ];
 
+const clientAssets = [
+  {
+    codCliente: 1,
+    codAtivo: 1,
+    valor: 68.37,
+    qtdeAtivo: 32,
+  },
+  {
+    codCliente: 1,
+    codAtivo: 2,
+    valor: 27.96,
+    qtdeAtivo: 102,
+  },
+];
+
 const foundClientAsset = {
   codCliente: 1,
   codAtivo: 1,
   valor: 68.37,
   qtdeAtivo: 32,
+  save: stub(),
 };
 
 const newAssetAmount = foundClientAsset.qtdeAtivo + validBody.qtdeAtivo;
@@ -55,4 +72,5 @@ module.exports = {
   newAssetAmount,
   ativosClienteUpdateOptionsParameter,
   ativosClienteUpdateParameter,
+  clientAssets,
 };

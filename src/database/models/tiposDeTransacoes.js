@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       TiposDeTransacoes.hasMany(
         models.Transacoes,
         {
-          foreignKey: 'cod_tipo_transacao',
+          foreignKey: 'codTipoTransacao',
           as: 'transacoes'
         }
       )
