@@ -53,11 +53,9 @@ const updateOrCreateClientAsset = async (
   );
 
   if (clientAsset) {
-    const { qtdeAtivo: oldAssetAmount } = clientAsset;
-    const newAssetAmount = calcUserAmount(oldAssetAmount, qtdeAtivo, operationType);
-    const updateObject = { qtdeAtivo: newAssetAmount, valor };
-    const optionsObject = { where: { codCliente, codAtivo }, transaction };
-    return AtivosClientes.update(updateObject, optionsObject);
+    clientAsset.qtdeAtivo = calcUserAmount(clientAsset, qtdeAtivo, operationType);
+    clientAsset.valor = valor;
+    return clientAsset.save({ transaction });
   }
   return AtivosClientes.create(
     {
