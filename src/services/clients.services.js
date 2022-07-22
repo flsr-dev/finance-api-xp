@@ -12,7 +12,7 @@ const checkIfClientExists = async (codCliente) => {
   return true;
 };
 
-const getAssetsByClient = async ({ codCliente }, { id: userCode }) => {
+const getAssetsByClient = async ({ codCliente }, { codCliente: userCode }) => {
   checkIfClientIsAuthorized(codCliente, userCode);
   checkIfClientExists(codCliente);
 
