@@ -16,7 +16,6 @@ const authenticateToken = (token) => {
   if (!token) {
     throw new HttpException(StatusCodes.UNAUTHORIZED, AUTHENTICATION_ERROR_MSG);
   }
-
   try {
     return Jwt.verify(token, JWT_SECRET);
   } catch (error) {
