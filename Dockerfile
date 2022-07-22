@@ -1,6 +1,6 @@
 FROM node:16-alpine3.15 AS finance-api
 
-EXPOSE 3001
+EXPOSE 3000
 
 WORKDIR /app
 
