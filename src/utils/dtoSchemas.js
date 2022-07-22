@@ -40,5 +40,10 @@ module.exports = {
   }).messages({
     'any.required': '{{#label}} is required',
   }),
+  conta: Joi.object({
+    codCliente: Joi.number().required(),
+  }).messages({
+    'any.required': '{{#label}} is required',
+  }),
 
 };
