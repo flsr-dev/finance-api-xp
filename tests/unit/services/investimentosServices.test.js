@@ -51,12 +51,12 @@ describe('tests investimentos.services when buying asset', () => {
         expect(buyAssetReturn).to.have.property('codTipoTransacao');
         expect(buyAssetReturn).to.have.property('criacao');
         expect(buyAssetReturn).to.be.equal(newTransaction);
-      }).timeout(10000);
+      });
 
       it('should call Ativos.findByPk with the correct params', async () => {
         await services.operateAsset(validBody, 'comprar');
         expect(mockModels.Ativos.findByPk.calledOnceWith(validBody.codAtivo)).to.have.equal(true);
-      }).timeout(10000);
+      });
 
       it('should call Transacoes.create with the correct params', async () => {
         await services.operateAsset(validBody, 'comprar');
