@@ -6,7 +6,7 @@ const joiErrorStatus = require('../utils/joiErrorStatus');
 const validateSchema = (req) => {
   const routeName = toCamelCase(req.originalUrl);
   if (Object.keys(req.body).length === 0) {
-    return dtoSchemas[routeName].validate(req.params, { convert: false });
+    return dtoSchemas[routeName].validate(req.params);
   }
   return dtoSchemas[routeName].validate(req.body, { convert: false });
 };
