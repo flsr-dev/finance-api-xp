@@ -5,14 +5,10 @@ const {
 const { stub } = require('sinon');
 const proxyquire = require('proxyquire');
 const { makeMockModels } = require('sequelize-test-helpers');
-const {
-  allAssets,
-  ativoUpdateParameters,
-  ativoUpdateOptionsParameters,
-} = require('../../mocks/AtivosData');
+const { allAssets } = require('../../mocks/AtivosData');
 const { validBody, invalidCodAtivo, invalidQtdeAtivo } = require('../../mocks/bodyRequest');
 const { newTransaction, createTransaction } = require('../../mocks/TranscoesData');
-const { foundClientAsset, ativosClienteUpdateParameter, ativosClienteUpdateOptionsParameter } = require('../../mocks/AtivosClientesData');
+const { foundClientAsset } = require('../../mocks/AtivosClientesData');
 
 const AtivosClientes = { findOne: stub(), create: stub(), update: stub() };
 const Transacoes = { create: stub() };
