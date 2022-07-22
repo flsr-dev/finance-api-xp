@@ -1,0 +1,32 @@
+version: '3'
+services:
+  finance-api:
+    build: ./
+    stdin_open: true 
+    tty: true        
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_PWD_DEV=o5WaTnhHaWvHcF6l
+      - DB_HOST_DEV=postgres_db
+      - DB_NAME_DEV=postgres
+      - DB_USER_DEV=postgres
+      - DB_PORT_DEV=5432
+      - JWT_SECRET=w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq
+      - PORT=3000
+    depends_on:
+      - postgres_db
+  postgres_db:
+    image:  "postgres:12"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=o5WaTnhHaWvHcF6l
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+volumes:
+  postgres_db:
