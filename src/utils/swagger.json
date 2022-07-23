@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Finance API",
+    "description": "API para acesso a operações financeiras e dados de ativos do mercado de ações, desenvolvida para o processo seletivo Trybe-XP",
+    "contact": {
+      "name": "Fernando Lucas de Souza Ribeiro",
+      "url": "flsr.dev@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths" : {
+    "/investimentos/comprar": {
+      "post": {}
+    },
+    "/investimentos/vender": {
+      "post": {}
+    },
+    "/conta/deposito": {
+      "post": {}
+    },
+    "/conta/saque": {
+      "post": {}
+    },
+    "/conta/{codCliente}": {
+      "get": {}
+    },
+    "/clientes/ativos/{codCliente}": {
+      "get": {}
+    },
+    "/assets/ativos/{codAtivo}": {
+      "get": {}
+    }
+  }
+}
