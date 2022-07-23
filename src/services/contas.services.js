@@ -41,10 +41,7 @@ const accountBalanceOperation = async ({ codCliente, valor }, operationType, seq
   return createNewAccountOperation(updatedAccount, valor, operationType, seqTransaction);
 };
 
-const getClientAccountBalance = async ({ codCliente }) => {
-  const account = await getAccount(codCliente);
-  return account;
-};
+const getClientAccountBalance = async ({ codCliente }) => getAccount(codCliente);
 
 module.exports = {
   accountBalanceOperation,
