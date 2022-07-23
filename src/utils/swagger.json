@@ -2,34 +2,716 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Finance API",
-    "description": "API para acesso a operações financeiras e dados de ativos do mercado de ações, desenvolvida para o processo seletivo Trybe-XP",
+    "description": "API para acesso a operações financeiras e dados de ativos do mercado de ações, desenvolvida para o processo seletivo XP-Trybe",
     "contact": {
-      "name": "Fernando Lucas de Souza Ribeiro",
-      "url": "flsr.dev@gmail.com"
+      "name": "Fernando Lucas de Souza Ribeiro - flsr.dev@gmail.com",
+      "email": "flsr.dev@gmail.com"
     },
     "version": "1.0.0"
   },
-  "paths" : {
+  "paths": {
     "/investimentos/comprar": {
-      "post": {}
+      "post": {
+        "tags": [
+          "Investimentos"
+        ],
+        "summary": "Comprar ações",
+        "description": "Rota responsável por comprar ações",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestimentoBody"
+              },
+              "examples": {
+                "comprar": {
+                  "summary": "Comprar ativo",
+                  "value": {
+                    "codCliente": 1,
+                    "codAtivo": 1,
+                    "qtdeAtivo": 20
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestimentosSuccessReturn"
+                },
+                "examples": {
+                  "comprar": {
+                    "summary": "Comprar ativo",
+                    "value": {
+                      "valor": 68.37,
+                      "criacao": "2022-07-23T18:17:15.111Z",
+                      "idTransacao": 10,
+                      "codCliente": 1,
+                      "codTipoTransacao": 1,
+                      "codAtivo": 1,
+                      "qtdeAtivo": 20
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fundos insuficientes",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Fundos insuficientes",
+                    "value": {
+                      "message": "Insufficient funds"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ação não encontrada",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Ação não encontrada",
+                    "value": {
+                      "message": "\"codAtivo\" not valid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erros de validação de requisição",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "qtdeAtivoType": {
+                    "summary": "qtdeAtivo inválido",
+                    "value": {
+                      "message": "\"qtdeAtivo\" must be a number"
+                    }
+                  },
+                  "codClienteType": {
+                    "summary": "codCliente inválido",
+                    "value": {
+                      "message": "\"codCliente\" must be a number"
+                    }
+                  },
+                  "codAtivoType": {
+                    "summary": "qtdeAtivo inválida",
+                    "value": {
+                      "message": "\"codAtivo\" must be a number"
+                    }
+                  },
+                  "qtdeAtivoInsuficient": {
+                    "summary": "qtdeAtivo insuficiente",
+                    "value": {
+                      "message": "Requested \"qtdeAtivo\" is not available"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/investimentos/vender": {
-      "post": {}
+      "post": {
+        "tags": [
+          "Investimentos"
+        ],
+        "summary": "Vender ações",
+        "description": "Rota responsável por vender ações",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestimentoBody"
+              },
+              "examples": {
+                "vender": {
+                  "summary": "Vender ativo",
+                  "value": {
+                    "codCliente": 1,
+                    "codAtivo": 1,
+                    "qtdeAtivo": 20
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestimentosSuccessReturn"
+                },
+                "examples": {
+                  "vender": {
+                    "summary": "Vender ativo",
+                    "value": {
+                      "valor": 68.37,
+                      "criacao": "2022-07-23T18:17:15.111Z",
+                      "idTransacao": 10,
+                      "codCliente": 1,
+                      "codTipoTransacao": 2,
+                      "codAtivo": 1,
+                      "qtdeAtivo": 20
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ação não encontrada",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Ação não encontrada",
+                    "value": {
+                      "message": "\"codAtivo\" not valid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erros de validação de requisição",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "qtdeAtivoType": {
+                    "summary": "qtdeAtivo inválido",
+                    "value": {
+                      "message": "\"qtdeAtivo\" must be a number"
+                    }
+                  },
+                  "codClienteType": {
+                    "summary": "codCliente inválido",
+                    "value": {
+                      "message": "\"codCliente\" must be a number"
+                    }
+                  },
+                  "codAtivoType": {
+                    "summary": "qtdeAtivo inválida",
+                    "value": {
+                      "message": "\"codAtivo\" must be a number"
+                    }
+                  },
+                  "qtdeAtivoInsuficient": {
+                    "summary": "qtdeAtivo insuficiente",
+                    "value": {
+                      "message": "Requested \"qtdeAtivo\" is not available"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/conta/deposito": {
-      "post": {}
+      "post": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Depositar fundos",
+        "description": "Rota responsável por depositar fundos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContaBody"
+              },
+              "examples": {
+                "deposito": {
+                  "summary": "Depositar fundos",
+                  "value": {
+                    "codCliente": 1,
+                    "valor": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContaSuccessReturn"
+                },
+                "examples": {
+                  "deposito": {
+                    "summary": "Depositar fundos",
+                    "value": {
+                      "valor": 68.37,
+                      "criacao": "2022-07-23T18:17:15.111Z",
+                      "idOperacao": 10,
+                      "codCliente": 1,
+                      "codTipoOperacao": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Cliente não encontrado",
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/conta/saque": {
-      "post": {}
+      "post": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Sacar fundos",
+        "description": "Rota responsável por sacar fundos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContaBody"
+              },
+              "examples": {
+                "saque": {
+                  "summary": "Sacar fundos",
+                  "value": {
+                    "codCliente": 1,
+                    "valor": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContaSuccessReturn"
+                },
+                "examples": {
+                  "saque": {
+                    "summary": "Sacar fundos",
+                    "value": {
+                      "valor": 68.37,
+                      "criacao": "2022-07-23T18:17:15.111Z",
+                      "idOperacao": 10,
+                      "codCliente": 1,
+                      "codTipoOperacao": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Saldo insuficiente",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFunds": {
+                    "summary": "Saldo insuficiente",
+                    "value": {
+                      "message": "Insufficient funds"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Cliente não encontrado",
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/conta/{codCliente}": {
-      "get": {}
+      "get": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Obter saldo",
+        "description": "Rota responsável por obter saldo",
+        "parameters": [
+          {
+            "name": "codCliente",
+            "in": "path",
+            "description": "Código do cliente",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContaSuccessReturn"
+                },
+                "examples": {
+                  "get": {
+                    "summary": "Obter saldo",
+                    "value": {
+                      "valor": 20,
+                      "codConta": 1,
+                      "codCliente": 1,
+                      "atualizacao": "2022-07-23T18:59:25.887Z",
+                      "criacao": "2011-08-01T19:58:00.000Z",
+                      "ativo": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Cliente não encontrado",
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/clientes/ativos/{codCliente}": {
-      "get": {}
+      "get": {
+        "tags": [
+          "Ativos"
+        ],
+        "summary": "Obter ativos do cliente",
+        "description": "Rota responsável por obter ativos do cliente",
+        "parameters": [
+          {
+            "name": "codCliente",
+            "in": "path",
+            "description": "Código do cliente",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteSuccessReturn"
+                },
+                "examples": {
+                  "get": {
+                    "summary": "Obter ativos do cliente",
+                    "value": [
+                      {
+                        "valor": 68.37,
+                        "codCliente": 1,
+                        "codAtivo": 1,
+                        "qtdeAtivo": 50
+                      },
+                      {
+                        "valor": 27.96,
+                        "codCliente": 1,
+                        "codAtivo": 2,
+                        "qtdeAtivo": 102
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Cliente não encontrado",
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/assets/ativos/{codAtivo}": {
-      "get": {}
+      "get": {
+        "tags": [
+          "Ativos"
+        ],
+        "summary": "Obter ativo",
+        "description": "Rota responsável por obter ativo",
+        "parameters": [
+          {
+            "name": "codAtivo",
+            "in": "path",
+            "description": "Código do ativo",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AtivoSuccessReturn"
+                },
+                "examples": {
+                  "get": {
+                    "summary": "Obter ativo",
+                    "value": {
+                      "valor": 68.37,
+                      "codAtivo": 1,
+                      "simboloAtivo": "VALE3",
+                      "criacao": "2011-08-01T19:58:00.000Z",
+                      "atualizacao": "2022-07-23T18:17:15.023Z",
+                      "qtdeAtivo": 20167
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ativo não encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "notFound": {
+                    "summary": "Ativo não encontrado",
+                    "value": {
+                      "message": "\"codAtivo\" not valid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InvestimentoBody": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer",
+            "description": "Código do cliente"
+          },
+          "codAtivo": {
+            "type": "integer",
+            "description": "Código do ativo"
+          },
+          "qtdeAtivo": {
+            "type": "integer",
+            "description": "Quantidade de ações"
+          }
+        }
+      },
+      "InvestimentosSuccessReturn": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "description": "Valor da ação"
+          },
+          "criacao": {
+            "type": "timestamp",
+            "description": "Data e hora da compra"
+          },
+          "idTransacao": {
+            "type": "integer",
+            "description": "Código da transação"
+          },
+          "codCliente": {
+            "type": "integer",
+            "description": "Código do cliente"
+          },
+          "codTipoTransacao": {
+            "type": "integer",
+            "description": "Código do tipo de transação (1 - compra, 2 - venda)"
+          },
+          "codAtivo": {
+            "type": "integer",
+            "description": "Código do ativo"
+          },
+          "qtdeAtivo": {
+            "type": "integer",
+            "description": "Quantidade de ações compradas"
+          }
+        }
+      },
+      "ContaBody": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer",
+            "description": "Código do cliente"
+          },
+          "valor": {
+            "type": "number",
+            "description": "Valor a ser depositado"
+          }
+        }
+      },
+      "ContaSuccessReturn": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "description": "Valor movimentado na conta"
+          },
+          "criacao": {
+            "type": "timestamp",
+            "description": "Data e hora da criação da operação"
+          },
+          "idOperacao": {
+            "type": "integer",
+            "description": "Código da operação na conta"
+          },
+          "codCliente": {
+            "type": "integer",
+            "description": "Código do cliente"
+          },
+          "codTipoOperacao": {
+            "type": "integer",
+            "description": "Código do tipo de transação (1 - deposito, 2 - venda)"
+          }
+        }
+      },
+      "Ativos": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "description": "Valor da ação"
+          },
+          "codCliente": {
+            "type": "integer",
+            "description": "Código do cliente"
+          },
+          "codAtivo": {
+            "type": "integer",
+            "description": "Código do ativo"
+          },
+          "qtdeAtivo": {
+            "type": "integer",
+            "description": "Quantidade de ações"
+          }
+        }
+      },
+      "ClienteSuccessReturn": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Ativos"
+        }
+      },
+      "AtivoSuccessReturn": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "description": "Valor da ação"
+          },
+          "codAtivo": {
+            "type": "integer",
+            "description": "Código do ativo"
+          },
+          "simboloAtivo": {
+            "type": "string",
+            "description": "Simbolo do ativo"
+          },
+          "criacao": {
+            "type": "timestamp",
+            "description": "Data e hora da criação do ativo"
+          },
+          "atualizacao": {
+            "type": "timestamp",
+            "description": "Data e hora da atualização do ativo"
+          },
+          "qtdeAtivo": {
+            "type": "integer",
+            "description": "Quantidade de ações disponíveis na corretora"
+          }
+        }
+      }
     }
   }
 }
