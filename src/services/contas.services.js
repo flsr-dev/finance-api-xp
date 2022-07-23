@@ -25,7 +25,7 @@ const createNewAccountOperation = (account, valor, operationType, seqTransaction
   return Operacoes.create({ valor, codCliente, codTipoOperacao }, { transaction: seqTransaction });
 };
 
-const accountBalanceOperation = async ({ codCliente, valor }, operationType, seqTransaction) => {
+const updateBalance = async (codCliente, valor, operationType, seqTransaction) => {
   const account = await getAccount(codCliente);
   const newBalance = calcNewBalance(account, valor, operationType);
   if (newBalance < 0) {
@@ -33,7 +33,12 @@ const accountBalanceOperation = async ({ codCliente, valor }, operationType, seq
   }
   account.valor = newBalance;
   account.save({ transaction: seqTransaction });
-  return createNewAccountOperation(account, valor, operationType, seqTransaction);
+  return account;
+};
+
+const accountBalanceOperation = async ({ codCliente, valor }, operationType, seqTransaction) => {
+  const updatedAccount = await updateBalance(codCliente, valor, operationType, seqTransaction);
+  return createNewAccountOperation(updatedAccount, valor, operationType, seqTransaction);
 };
 
 const getClientAccountBalance = async ({ codCliente }) => {
