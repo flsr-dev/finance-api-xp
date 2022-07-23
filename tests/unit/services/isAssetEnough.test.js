@@ -3,7 +3,7 @@ const { describe, it } = require('mocha');
 const { stub } = require('sinon');
 const proxyquire = require('proxyquire');
 const { makeMockModels } = require('sequelize-test-helpers');
-const { isAssetEnough } = require('../../../src/utils/isAssetEnough');
+const { isAssetEnough } = require('../../../src/services/clients.services');
 const { foundClientAsset } = require('../../mocks/AtivosClientesData');
 
 const AtivosClientes = { findOne: stub(), create: stub(), update: stub() };
@@ -11,7 +11,7 @@ const Transacoes = { create: stub() };
 const Ativos = { findByPk: stub(), update: stub() };
 const mockModels = makeMockModels({ AtivosClientes, Transacoes, Ativos });
 const assetMock = proxyquire(
-  '../../../src/utils/isAssetEnough',
+  '../../../src/services/clients.services',
   { '../database/models': mockModels },
 );
 
