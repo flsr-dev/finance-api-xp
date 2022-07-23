@@ -12,6 +12,4 @@ app.disable('x-powered-by');
 app.use(routes);
 app.use(errorMiddleware);
 
-// eslint-disable-next-line no-console
-
 module.exports = app;
