@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const { Ativos, Transacoes, AtivosClientes } = require('../database/models');
 const HttpException = require('../classes/http.exception');
 const { ASSET_NOT_FOUND_MSG } = require('../utils/errorMessages');
-const { isAssetEnough } = require('../utils/isAssetEnough');
+const { isAssetEnough } = require('./clients.services');
 const { calcBrokerAmount, calcUserAmount } = require('../utils/calculateAssetAmount');
 const transactionCodes = require('../utils/transactionCodes');
 
