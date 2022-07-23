@@ -22,7 +22,7 @@ jobs:
       - run: npm install
       - run: npm run lint
 
-  build:
+  buildAndTest:
     needs: eslint
     runs-on: ubuntu-20.04
     strategy:
