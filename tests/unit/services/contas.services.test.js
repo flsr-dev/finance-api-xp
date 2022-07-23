@@ -33,7 +33,7 @@ describe('tests contas.services', () => {
       });
 
       it('should return the new operation register', async () => {
-        const account = await services.accountBalanceOperation(newAccountOperation, 'deposito', () => {});
+        const account = await services.accountBalanceOperation(newAccountOperation, 'deposito', stub());
         expect(account).to.have.property('valor');
         expect(account).to.have.property('codTipoOperacao');
         expect(account).to.have.property('codCliente');
@@ -41,13 +41,13 @@ describe('tests contas.services', () => {
       });
 
       it('should call Contas.findOne with the correct params', async () => {
-        await services.accountBalanceOperation(newAccountOperation, 'deposito', () => {});
+        await services.accountBalanceOperation(newAccountOperation, 'deposito', stub());
         const calledArgs = mockModels.Contas.findOne.firstCall.args;
         expect(calledArgs[0].where.codCliente).equal(newAccountOperation.codCliente);
       });
 
       it('should call Operacoes.create with the correct params', async () => {
-        await services.accountBalanceOperation(newAccountOperation, 'deposito', () => {});
+        await services.accountBalanceOperation(newAccountOperation, 'deposito', stub());
         const calledArgs = mockModels.Operacoes.create.firstCall.args;
         expect(calledArgs[0].valor).equal(newAccountOperation.valor);
         expect(calledArgs[0].codCliente).equal(newAccountOperation.codCliente);
@@ -67,7 +67,7 @@ describe('tests contas.services', () => {
       });
 
       it('should return the new operation register', async () => {
-        const account = await services.accountBalanceOperation(newAccountOperation, 'saque', () => {});
+        const account = await services.accountBalanceOperation(newAccountOperation, 'saque', stub());
         expect(account).to.have.property('valor');
         expect(account).to.have.property('codTipoOperacao');
         expect(account).to.have.property('codCliente');
@@ -75,13 +75,13 @@ describe('tests contas.services', () => {
       });
 
       it('should call Contas.findOne with the correct params', async () => {
-        await services.accountBalanceOperation(newAccountOperation, 'saque', () => {});
+        await services.accountBalanceOperation(newAccountOperation, 'saque', stub());
         const calledArgs = mockModels.Contas.findOne.firstCall.args;
         expect(calledArgs[0].where.codCliente).equal(newAccountOperation.codCliente);
       });
 
       it('should call Operacoes.create with the correct params', async () => {
-        await services.accountBalanceOperation(newAccountOperation, 'saque', () => {});
+        await services.accountBalanceOperation(newAccountOperation, 'saque', stub());
         const calledArgs = mockModels.Operacoes.create.firstCall.args;
         expect(calledArgs[0].valor).equal(newAccountOperation.valor);
         expect(calledArgs[0].codCliente).equal(newAccountOperation.codCliente);
@@ -98,7 +98,7 @@ describe('tests contas.services', () => {
     });
     it('should return an error', async () => {
       try {
-        await services.accountBalanceOperation(newAccountOperation, 'deposito', () => {});
+        await services.accountBalanceOperation(newAccountOperation, 'deposito', stub());
       } catch (error) {
         expect(error).to.have.property('message');
         expect(error).to.have.property('status');

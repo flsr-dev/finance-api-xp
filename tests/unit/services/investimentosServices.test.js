@@ -13,10 +13,13 @@ const { foundClientAsset } = require('../../mocks/AtivosClientesData');
 const AtivosClientes = { findOne: stub(), create: stub(), update: stub() };
 const Transacoes = { create: stub() };
 const Ativos = { findByPk: stub(), update: stub() };
-const mockModels = makeMockModels({ AtivosClientes, Transacoes, Ativos });
+const mockModels = makeMockModels({
+  AtivosClientes, Transacoes, Ativos,
+});
+const mockContasServices = { updateBalance: stub() };
 const services = proxyquire(
   '../../../src/services/investimentos.services',
-  { '../database/models': mockModels },
+  { '../database/models': mockModels, './contas.services': mockContasServices },
 );
 
 describe('tests investimentos.services when buying asset', () => {

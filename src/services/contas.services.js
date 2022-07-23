@@ -51,4 +51,5 @@ module.exports = {
   getClientAccountBalance,
   calcNewBalance,
   updateBalance,
+  getAccount,
 };
