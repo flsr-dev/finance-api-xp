@@ -49,8 +49,6 @@ describe('Tests ativos controller layer', () => {
     });
     it('should return a 200 status code', async () => {
       await AtivosController.getAsset(request, response);
-      console.log(response.status.args);
-      console.log(response.json.args);
 
       expect(response.status.calledWith(200)).equal(true);
     });
