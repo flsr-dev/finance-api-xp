@@ -122,8 +122,14 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 ## Github Actions (CI/CD)
 
+Ao início do desenvolvimento foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
 
+<img src='https://i.imgur.com/yc5WIDb.png'/>
+
+<br>
 
 ## SonarCloud
+
+Desde o início, a aplicação também foi monitorada pelo serviço de análise de qualidade de código para detectar possíveis problemas de manutenibilidade, confiabilidade e segurança
 
 <img src='https://i.imgur.com/UbmYnBV.png'/>
