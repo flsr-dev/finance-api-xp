@@ -57,7 +57,7 @@ jobs:
 
   deploy: 
     if: github.event.pull_request.merged == true
-    needs: [build, eslint]
+    needs: [buildAndTest, eslint]
     runs-on: ubuntu-20.04
     steps:
         - uses: actions/checkout@v3
