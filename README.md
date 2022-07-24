@@ -135,21 +135,92 @@ O desenvolvimento da aplicação foi dividido nas seguintes etapas:
 - Estudo do case e de regras de negócio;
 - Elaboração do diagrama de entidades e relacionamentos do banco de dados;
 - Setup do ambiente de testes e CI/CD;
-
-
-
-</details>
-
-## Github Actions (CI/CD)
-
-Ao início do desenvolvimento foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
-
-<img src='https://i.imgur.com/yc5WIDb.png'/>
+- Ciclo de desenvolvimento, elaboração de testes unitários e refatoração;
+- Documentação.
 
 <br>
 
-## SonarCloud
+</details>
 
-Desde o início, a aplicação também foi monitorada pelo serviço de análise de qualidade de código para detectar possíveis problemas de manutenibilidade, confiabilidade e segurança
+<details><summary>Arquitetura</summary> 
 
-<img src='https://i.imgur.com/UbmYnBV.png'/>
+A arquitetura da aplicação foi baseada no modelo MSC para organizar o código pensando em manutenção e escalabilidade.
+
+ - Middleware de autenticação através do JWT;
+ - Middleware de autorização para garantir que a pessoa cliente tem permissões de transação;
+ - Middleware para validação das requisições de acordo com o contrato de serviços;
+ - Camada de controller para tratamento de requisições à API e respostas;
+ - Camada de services responsável pela regra de negócio;
+ - Camada de models para integração com o banco, gerenciada pelo Sequelize;
+ - Middleware de tratamento de erros. 
+
+<br>
+
+</details>
+
+<details><summary>Continuous integration e continuous deploy</summary> 
+
+Ao início do desenvolvimento, foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
+
+O pipeline tem o objetivo de garantir:
+
+- A integração de novas implementações de código;
+- Padronização de código através do ESlint no padrão Airbnb;
+- Manter a integridade da aplicação através dos testes unitários;
+- Disponibilizar de forma ágil as novas implementações através de deploy automatizado via [Heroku](https://www.heroku.com/).
+
+
+<img src='https://i.imgur.com/yc5WIDb.png' alt='Imagem contendo pipeline de deploy utilizado na aplicação'/>
+
+<br>
+
+</details>
+
+<details><summary>Análise de qualidade de código</summary> 
+
+A qualidade do código é monitorada de forma automatizada pelo [Sonarcloud](https://sonarcloud.io/). O serviço de qualidade de código analisa cada Pull Request e também a aplicação de forma geral, apontando possíveis problemas de:
+
+- Manutenibilidade; 
+- Confiabilidade;
+- Segurança
+
+<img src='https://i.imgur.com/UbmYnBV.png' alt='Relatório de qualidade de código geral da aplicação' />
+
+<br>
+
+</details>
+
+
+<details><summary>Modelagem do banco de dados</summary> 
+
+O banco de dados foi modelado, tendo como foco garantir o respeito às formas normais e gerar históricos das transações e operações realizadas pelos clientes.
+
+Com o intuito de simplificar as funções da camada de model, auxiliar na manutenção e diminuir a suscetibilidade a erros, a integração do banco foi realizado pela ORM [Sequelize](https://sequelize.org/)
+
+<img src='https://i.imgur.com/JJ5iXm0.png' alt='Diagrama ER da aplicação' />
+
+<br>
+
+</details>
+
+<details><summary>Testes</summary> 
+
+Foram desenvolvidos testes unitários tendo como base a stack Mocha, Chai, Sinon e com auxílio de outras bibliotecas de mock para o Sequelize.
+
+Os testes foram essenciais para garantir a integridade e escalabilidade da aplicação durante o desenvolvimento e para futuras implementações.
+
+<br>
+
+</details>
+
+<br>
+
+Desenvolvido por Fernando Lucas de Souza Ribeiro.
+
+Contato: flsr.dev@gmail.com
+
+<a href="https://www.linkedin.com/in/fernandolsr0/" target="_blank">
+  <img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="linkedin"/>
+</a>
+
+
