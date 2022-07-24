@@ -12,6 +12,8 @@ Aplicação hospedada na rota base https://finance-api-xp.herokuapp.com/
 
 Para ter acesso à documentação, contendo todos os endpoint e métodos disponíveis, acesse: https://finance-api-xp.herokuapp.com/api-docs/
 
+OBS: A primeira requisição à aplicação pode demorar um pouco mais, pois o heroku pode colocá-la em estado ocioso.
+
 <br>
 
 ## Autenticação
@@ -45,7 +47,7 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 <br>
 
-## Instruções de setup
+## Instruções de setup local
 
 <details> <summary>Executando localmente com Docker</summary>
 
@@ -119,6 +121,24 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 </details>
 
 <br>
+
+## Abordagem de desenvolvimento do case
+
+O case foi desenvolvido com o objetivo de entregar uma API RESTful, baseando-se em regras de negócio do mercado financeiro e da XP Inc e de acordo com as definições dos contratos de serviços
+
+<br>
+
+<details><summary>Planejamento</summary> 
+
+O desenvolvimento da aplicação foi dividido nas seguintes etapas:
+
+- Estudo do case e de regras de negócio;
+- Elaboração do diagrama de entidades e relacionamentos do banco de dados;
+- Setup do ambiente de testes e CI/CD;
+
+
+
+</details>
 
 ## Github Actions (CI/CD)
 
