@@ -17,6 +17,7 @@ Aplicação hospedada na rota base https://finance-api-xp.herokuapp.com/
 Para ter acesso à documentação, contendo todos os endpoint e métodos disponíveis, acesse: https://finance-api-xp.herokuapp.com/api-docs/
 
 OBS: A primeira requisição à aplicação pode demorar um pouco mais, pois o heroku pode colocá-la em estado ocioso.
+OBS 2: A implementação de autenticação pelo swagger ainda não foi implementada, portanto para teste é necessário utilizar Postman ou Insomnia.
 
 <br>
 
@@ -26,7 +27,7 @@ A rota de login ainda não está implementada, portanto foram autenticados dois 
 
 OBS: Insira o token no header authorization das requisições
 
-OBS2: ⚠️ Os tokens gerados no ambiente docker não conseguem autenticar usuários na aplicação do deploy e vice-versa ⚠️
+OBS 2: ⚠️ Os tokens gerados no ambiente docker não conseguem autenticar usuários na aplicação do deploy e vice-versa ⚠️
 
 ### Usuário 1
 
@@ -102,13 +103,15 @@ A partir disso a aplicação já estará disponível localmente na porta 3000.
 
 Acesse http://localhost:3000/api-docs/ para ter acesso à documentação dos outros endpoints e métodos disponíveis.
 
+OBS: A implementação de autenticação pelo swagger ainda não foi implementada, portanto para teste é necessário utilizar Postman ou Insomnia.
+
 ## Autenticação
 
 A rota de login ainda não está implementada, portanto foram autenticados dois usuários para a realização dos testes:
 
 OBS: Insira o token no header authorization das requisições
 
-OBS2: ⚠️ Os tokens gerados no ambiente docker não conseguem autenticar usuários na aplicação do deploy e vice-versa ⚠️
+OBS 2: ⚠️ Os tokens gerados no ambiente docker não conseguem autenticar usuários na aplicação do deploy e vice-versa ⚠️
 
 ### Usuário 1
 
