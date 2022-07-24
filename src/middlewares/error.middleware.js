@@ -3,6 +3,7 @@ const errorMessages = require('../utils/errorMessages');
 
 const httpErrorMiddleware = (err, _req, res, _next) => {
   const { status } = err;
+  console.log(err);
   if (status) {
     return res.status(status).json({ message: err.message });
   }
