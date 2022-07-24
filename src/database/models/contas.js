@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(19, 2),
       get() {
         const value = this.getDataValue('saldo');
-        return value === null ? null : parseFloat(value).toFixed(2);
+        return value === null ? null : parseFloat(value);
       },
       field: "valor"
     },
