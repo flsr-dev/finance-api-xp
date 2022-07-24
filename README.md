@@ -17,6 +17,7 @@ Aplicação hospedada na rota base https://finance-api-xp.herokuapp.com/
 Para ter acesso à documentação, contendo todos os endpoint e métodos disponíveis, acesse: https://finance-api-xp.herokuapp.com/api-docs/
 
 OBS: A primeira requisição à aplicação pode demorar um pouco mais, pois o heroku pode colocá-la em estado ocioso.
+
 OBS 2: A implementação de autenticação pelo swagger ainda não foi implementada, portanto para teste é necessário utilizar Postman ou Insomnia.
 
 <br>
