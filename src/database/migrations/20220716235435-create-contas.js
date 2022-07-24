@@ -19,9 +19,10 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      valor: {
+      saldo: {
         type: Sequelize.DECIMAL(19, 2),
-        allowNull: false
+        allowNull: false,
+        field: 'valor'
       },
       ativo: {
         type: Sequelize.BOOLEAN,

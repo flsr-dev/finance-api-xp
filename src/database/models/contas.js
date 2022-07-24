@@ -28,12 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       field: 'cod_cliente',
     },
-    valor: {
+    saldo: {
       type: DataTypes.DECIMAL(19, 2),
       get() {
-        const value = this.getDataValue('valor');
-        return value === null ? null : parseFloat(value);
-      }
+        const value = this.getDataValue('saldo');
+        return value === null ? null : parseFloat(value).toFixed(2);
+      },
+      field: "valor"
     },
     atualizacao: {
       allowNull: false,

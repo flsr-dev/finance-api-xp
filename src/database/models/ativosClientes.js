@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(19, 2),
       get() {
         const value = this.getDataValue('valor');
-        return value === null ? null : parseFloat(value);
+        return value === null ? null : parseFloat(value).toFixed(2);
       }
     },
     qtdeAtivo: {
