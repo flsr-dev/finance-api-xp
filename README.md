@@ -6,7 +6,11 @@ Aplicação desenvolvida com Node.js 16, Javascript, Express, Sequelize, Docker,
 
 ## Deploy
 
+<br>
+
 <details><summary>Acesso à aplicação</summary>
+
+<br>
 
 Aplicação hospedada na rota base https://finance-api-xp.herokuapp.com/
 
@@ -49,15 +53,23 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 ## Instruções de setup local
 
+<br>
+
 <details> <summary>Executando localmente com Docker</summary>
+
+<br>
 
 ### Requitos:
 - [Node.js 16 LTS](https://nodejs.org/en/)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/#install-compose)
-- Postman ou Insomnia
+- [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/)
 
 ### Realizando migrations e seeds no banco de dados do container:
+
+Clone esse repositório:
+
+    git clone git@github.com:flsr-dev/finance-api-xp.git    
 
 Execute o comando abaixo na raiz do projeto para acessar o terminal do container:
 
@@ -124,11 +136,15 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 ## Abordagem de desenvolvimento do case
 
+<br>
+
 O case foi desenvolvido com o objetivo de entregar uma API RESTful, baseando-se em regras de negócio do mercado financeiro e da XP Inc e de acordo com as definições dos contratos de serviços
 
 <br>
 
 <details><summary>Planejamento</summary> 
+
+<br>
 
 O desenvolvimento da aplicação foi dividido nas seguintes etapas:
 
@@ -144,15 +160,23 @@ O desenvolvimento da aplicação foi dividido nas seguintes etapas:
 
 <details><summary>Arquitetura</summary> 
 
+<br>
+
 A arquitetura da aplicação foi baseada no modelo MSC para organizar o código pensando em manutenção e escalabilidade.
 
- - Middleware de autenticação através do JWT;
- - Middleware de autorização para garantir que a pessoa cliente tem permissões de transação;
- - Middleware para validação das requisições de acordo com o contrato de serviços;
- - Camada de controller para tratamento de requisições à API e respostas;
- - Camada de services responsável pela regra de negócio;
- - Camada de models para integração com o banco, gerenciada pelo Sequelize;
- - Middleware de tratamento de erros. 
+Camadas:
+
+ - Controller ⇒ tratamento de requisições à API e respostas;
+ - Services ⇒ responsável pela regra de negócio;
+ - Models ⇒ integração com o banco gerenciada pelo Sequelize;
+
+ Middlewares:
+
+ 
+ - Autenticação ⇒ por meio de verificação do token JWT;
+ - Autorização ⇒ garante que a pessoa cliente tem permissões de transação;
+ - Validação ⇒ assegura conformidade das requisições com o contrato de serviços;
+ - Erros ⇒ realiza captura e tratamento de erros. 
 
 <br>
 
@@ -160,13 +184,15 @@ A arquitetura da aplicação foi baseada no modelo MSC para organizar o código 
 
 <details><summary>Continuous integration e continuous deploy</summary> 
 
+<br>
+
 Ao início do desenvolvimento, foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
 
 O pipeline tem o objetivo de garantir:
 
-- A integração de novas implementações de código;
-- Padronização de código através do ESlint no padrão Airbnb;
-- Manter a integridade da aplicação através dos testes unitários;
+- Integração de novas implementações de código;
+- Padronização de código realizada pelo ESlint no padrão Airbnb;
+- Manter a integridade da aplicação por meio dos testes unitários;
 - Disponibilizar de forma ágil as novas implementações através de deploy automatizado via [Heroku](https://www.heroku.com/).
 
 
@@ -177,6 +203,8 @@ O pipeline tem o objetivo de garantir:
 </details>
 
 <details><summary>Análise de qualidade de código</summary> 
+
+<br>
 
 A qualidade do código é monitorada de forma automatizada pelo [Sonarcloud](https://sonarcloud.io/). O serviço de qualidade de código analisa cada Pull Request e também a aplicação de forma geral, apontando possíveis problemas de:
 
@@ -193,6 +221,8 @@ A qualidade do código é monitorada de forma automatizada pelo [Sonarcloud](htt
 
 <details><summary>Modelagem do banco de dados</summary> 
 
+<br>
+
 O banco de dados foi modelado, tendo como foco garantir o respeito às formas normais e gerar históricos das transações e operações realizadas pelos clientes.
 
 Com o intuito de simplificar as funções da camada de model, auxiliar na manutenção e diminuir a suscetibilidade a erros, a integração do banco foi realizado pela ORM [Sequelize](https://sequelize.org/)
@@ -204,6 +234,8 @@ Com o intuito de simplificar as funções da camada de model, auxiliar na manute
 </details>
 
 <details><summary>Testes</summary> 
+
+<br>
 
 Foram desenvolvidos testes unitários tendo como base a stack Mocha, Chai, Sinon e com auxílio de outras bibliotecas de mock para o Sequelize.
 
