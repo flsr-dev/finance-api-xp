@@ -5,8 +5,8 @@ const { authenticateToken, createToken } = require('../../../src/utils/jwt');
 describe('Test jwt', () => {
   const payload = {
     codCliente: 1,
-    email: 'user@email.com',
-    name: 'User',
+    email: 'flsr.dev@email.com',
+    name: 'Fernando',
   };
   describe('Test createToken', () => {
     it('tests if a token is created', () => {
