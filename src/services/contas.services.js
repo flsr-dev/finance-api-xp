@@ -14,9 +14,9 @@ const getAccount = async (codCliente) => {
 
 const calcNewBalance = (account, valor, operationType) => {
   if (operationType === 'deposito') {
-    return (parseFloat(account.valor) + parseFloat(valor)).toFixed(2);
+    return (parseFloat(account.saldo) + parseFloat(valor)).toFixed(2);
   }
-  return (parseFloat(account.valor) - parseFloat(valor)).toFixed(2);
+  return (parseFloat(account.saldo) - parseFloat(valor)).toFixed(2);
 };
 
 const createNewAccountOperation = (account, valor, operationType, seqTransaction) => {
@@ -31,7 +31,7 @@ const updateBalance = async (codCliente, valor, operationType, seqTransaction) =
   if (newBalance < 0) {
     throw new HttpException(StatusCodes.BAD_REQUEST, INSUFICIENT_FUNDS_MSG);
   }
-  account.valor = newBalance;
+  account.saldo = newBalance;
   account.save({ transaction: seqTransaction });
   return account;
 };

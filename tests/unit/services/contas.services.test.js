@@ -111,14 +111,14 @@ describe('tests contas.services', () => {
 
 describe('tests calcNewBalance', () => {
   it('should return the sum when the operation is "deposito"', () => {
-    const account = { valor: '100.00' };
+    const account = { saldo: '100.00' };
     const valor = '10.00';
     const operationType = 'deposito';
     const newBalance = contasServices.calcNewBalance(account, valor, operationType);
     expect(newBalance).equal('110.00');
   });
   it('should return the subtraction when the operation is "saque"', () => {
-    const account = { valor: '100.00' };
+    const account = { saldo: '100.00' };
     const valor = '10.00';
     const operationType = 'saque';
     const newBalance = contasServices.calcNewBalance(account, valor, operationType);
