@@ -26,12 +26,16 @@ const checkClientAssetAvailability = {
   },
   vender: async (body) => {
     const { qtdeAtivo: requestedAmount } = body;
-    const { qtdeAtivo } = await AtivosClientes.findOne({
+    const assets = await AtivosClientes.findOne({
       where: {
         codCliente: body.codCliente,
         codAtivo: body.codAtivo,
       },
     });
+    if (!assets) {
+      throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_ENOUGH_MSG);
+    }
+    const { qtdeAtivo } = assets;
     if (requestedAmount > qtdeAtivo) {
       throw new HttpException(StatusCodes.UNPROCESSABLE_ENTITY, ASSET_NOT_ENOUGH_MSG);
     }
