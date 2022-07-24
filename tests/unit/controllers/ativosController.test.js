@@ -52,7 +52,7 @@ describe('Tests ativos controller layer', () => {
 
       expect(response.status.calledWith(200)).equal(true);
     });
-    it('should return asset not found message', async () => {
+    it('should return asset return the found asset', async () => {
       await AtivosController.getAsset(request, response);
       expect(response.json.calledWith(foundAsset)).equal(true);
     });

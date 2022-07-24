@@ -55,7 +55,7 @@ describe('Tests clientes controller layer', () => {
       expect(response.status.calledWith(200)).equal(true);
     });
 
-    it('should return asset not found message', async () => {
+    it('should return the assets', async () => {
       await ClientsController.getAllClientsAssets(request, response);
       expect(response.json.calledWith(allAssets)).equal(true);
     });
