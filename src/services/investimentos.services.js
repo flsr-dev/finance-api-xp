@@ -54,6 +54,10 @@ const updateOrCreateClientAsset = async (
     },
   );
 
+  if (!clientAsset && operationType === 'vender') {
+    throw new HttpException(StatusCodes.NOT_FOUND, ASSET_NOT_FOUND_MSG);
+  }
+
   if (clientAsset) {
     clientAsset.qtdeAtivo = calcUserAmount(clientAsset, qtdeAtivo, operationType);
     clientAsset.valor = valor;
