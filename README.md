@@ -6,11 +6,17 @@ Aplicação desenvolvida com Node.js 16, Javascript, Express, Sequelize, Docker,
 
 ## Deploy
 
+<br>
+
 <details><summary>Acesso à aplicação</summary>
+
+<br>
 
 Aplicação hospedada na rota base https://finance-api-xp.herokuapp.com/
 
 Para ter acesso à documentação, contendo todos os endpoint e métodos disponíveis, acesse: https://finance-api-xp.herokuapp.com/api-docs/
+
+OBS: A primeira requisição à aplicação pode demorar um pouco mais, pois o heroku pode colocá-la em estado ocioso.
 
 <br>
 
@@ -45,17 +51,25 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 <br>
 
-## Instruções de setup
+## Instruções de setup local
+
+<br>
 
 <details> <summary>Executando localmente com Docker</summary>
+
+<br>
 
 ### Requitos:
 - [Node.js 16 LTS](https://nodejs.org/en/)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/#install-compose)
-- Postman ou Insomnia
+- [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/)
 
 ### Realizando migrations e seeds no banco de dados do container:
+
+Clone esse repositório:
+
+    git clone git@github.com:flsr-dev/finance-api-xp.git    
 
 Execute o comando abaixo na raiz do projeto para acessar o terminal do container:
 
@@ -120,16 +134,125 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RDbGllbnRlIjoyLCJlbWFpbCI6Imp
 
 <br>
 
-## Github Actions (CI/CD)
-
-Ao início do desenvolvimento foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
-
-<img src='https://i.imgur.com/yc5WIDb.png'/>
+## Abordagem de desenvolvimento do case
 
 <br>
 
-## SonarCloud
+O case foi desenvolvido com o objetivo de entregar uma API RESTful, baseando-se em regras de negócio do mercado financeiro e da XP Inc e de acordo com as definições dos contratos de serviços
 
-Desde o início, a aplicação também foi monitorada pelo serviço de análise de qualidade de código para detectar possíveis problemas de manutenibilidade, confiabilidade e segurança
+<br>
 
-<img src='https://i.imgur.com/UbmYnBV.png'/>
+<details><summary>Planejamento</summary> 
+
+<br>
+
+O desenvolvimento da aplicação foi dividido nas seguintes etapas:
+
+- Estudo do case e de regras de negócio;
+- Elaboração do diagrama de entidades e relacionamentos do banco de dados;
+- Setup do ambiente de testes e CI/CD;
+- Ciclo de desenvolvimento, elaboração de testes unitários e refatoração;
+- Documentação.
+
+<br>
+
+</details>
+
+<details><summary>Arquitetura</summary> 
+
+<br>
+
+A arquitetura da aplicação foi baseada no modelo MSC para organizar o código pensando em manutenção e escalabilidade.
+
+Camadas:
+
+ - Controller ⇒ tratamento de requisições à API e respostas;
+ - Services ⇒ responsável pela regra de negócio;
+ - Models ⇒ integração com o banco gerenciada pelo Sequelize;
+
+ Middlewares:
+
+ 
+ - Autenticação ⇒ por meio de verificação do token JWT;
+ - Autorização ⇒ garante que a pessoa cliente tem permissões de transação;
+ - Validação ⇒ assegura conformidade das requisições com o contrato de serviços;
+ - Erros ⇒ realiza captura e tratamento de erros. 
+
+<br>
+
+</details>
+
+<details><summary>Continuous integration e continuous deploy</summary> 
+
+<br>
+
+Ao início do desenvolvimento, foi criada um esteira para realizar o deploy contínuo da aplicação ao passar nos testes de ESlint e unitários.
+
+O pipeline tem o objetivo de garantir:
+
+- Integração de novas implementações de código;
+- Padronização de código realizada pelo ESlint no padrão Airbnb;
+- Manter a integridade da aplicação por meio dos testes unitários;
+- Disponibilizar de forma ágil as novas implementações através de deploy automatizado via [Heroku](https://www.heroku.com/).
+
+
+<img src='https://i.imgur.com/yc5WIDb.png' alt='Imagem contendo pipeline de deploy utilizado na aplicação'/>
+
+<br>
+
+</details>
+
+<details><summary>Análise de qualidade de código</summary> 
+
+<br>
+
+A qualidade do código é monitorada de forma automatizada pelo [Sonarcloud](https://sonarcloud.io/). O serviço de qualidade de código analisa cada Pull Request e também a aplicação de forma geral, apontando possíveis problemas de:
+
+- Manutenibilidade; 
+- Confiabilidade;
+- Segurança
+
+<img src='https://i.imgur.com/UbmYnBV.png' alt='Relatório de qualidade de código geral da aplicação' />
+
+<br>
+
+</details>
+
+
+<details><summary>Modelagem do banco de dados</summary> 
+
+<br>
+
+O banco de dados foi modelado, tendo como foco garantir o respeito às formas normais e gerar históricos das transações e operações realizadas pelos clientes.
+
+Com o intuito de simplificar as funções da camada de model, auxiliar na manutenção e diminuir a suscetibilidade a erros, a integração do banco foi realizado pela ORM [Sequelize](https://sequelize.org/)
+
+<img src='https://i.imgur.com/JJ5iXm0.png' alt='Diagrama ER da aplicação' />
+
+<br>
+
+</details>
+
+<details><summary>Testes</summary> 
+
+<br>
+
+Foram desenvolvidos testes unitários tendo como base a stack Mocha, Chai, Sinon e com auxílio de outras bibliotecas de mock para o Sequelize.
+
+Os testes foram essenciais para garantir a integridade e escalabilidade da aplicação durante o desenvolvimento e para futuras implementações.
+
+<br>
+
+</details>
+
+<br>
+
+Desenvolvido por Fernando Lucas de Souza Ribeiro.
+
+Contato: flsr.dev@gmail.com
+
+<a href="https://www.linkedin.com/in/fernandolsr0/" target="_blank">
+  <img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="linkedin"/>
+</a>
+
+
